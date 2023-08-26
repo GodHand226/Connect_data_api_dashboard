@@ -39,7 +39,7 @@ Coded by www.creative-tim.com
 import Dashboard from "layouts/dashboard";
 import Tables from "layouts/tables";
 import Billing from "layouts/billing";
-import VirtualReality from "layouts/virtual-reality";
+// import VirtualReality from "layouts/virtual-reality";
 import RTL from "layouts/rtl";
 import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
@@ -54,6 +54,7 @@ import Document from "examples/Icons/Document";
 import SpaceShip from "examples/Icons/SpaceShip";
 import CustomerSupport from "examples/Icons/CustomerSupport";
 import CreditCard from "examples/Icons/CreditCard";
+import VirtualReality from "layouts/virtual-reality";
 import Cube from "examples/Icons/Cube";
 
 const routes = [
@@ -69,9 +70,9 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Tables",
+    name: "Data Viewer",
     key: "tables",
-    route: "/tables",
+    route: "/dataviewer",
     icon: <Office size="12px" />,
     component: Tables,
     noCollapse: true,
@@ -89,9 +90,9 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Virtual Reality",
-    key: "virtual-reality",
-    route: "/virtual-reality",
+    name: "Plan",
+    key: "plan",
+    route: "/plan",
     icon: <Cube size="12px" />,
     component: VirtualReality,
     noCollapse: true,
@@ -99,9 +100,9 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "RTL",
+    name: "API",
     key: "rtl",
-    route: "/rtl",
+    route: "/api",
     icon: <Settings size="12px" />,
     component: RTL,
     noCollapse: true,

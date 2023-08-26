@@ -94,7 +94,7 @@ function SignIn() {
 
   return (
     <CoverLayout
-      title="Flask React Soft Dashboard"
+      title="Connect Data API"
       description={`${user && user.token ? "" : "Enter your email and password to sign in"}`}
       image={curved9}
     >

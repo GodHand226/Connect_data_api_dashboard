@@ -34,11 +34,11 @@ import Link from "@mui/material/Link";
 // Soft UI Dashboard React components
 import SuiBox from "components/SuiBox";
 import SuiTypography from "components/SuiTypography";
-import SuiButton from "components/SuiButton";
+// import SuiButton from "components/SuiButton";
 
 // Soft UI Dashboard React example components
 import SidenavCollapse from "examples/Sidenav/SidenavCollapse";
-import SidenavCard from "examples/Sidenav/SidenavCard";
+// import SidenavCard from "examples/Sidenav/SidenavCard";
 
 // Custom styles for the Sidenav
 import styles from "examples/Sidenav/styles/sidenav";
@@ -163,29 +163,13 @@ function Sidenav({ routes, ...rest }) {
           />
           <SuiBox customClass={classes.sidenav_logoLabel}>
             <SuiTypography component="h6" variant="button" fontWeight="medium">
-              Soft UI Dashboard
+              Connect Data API
             </SuiTypography>
           </SuiBox>
         </NavLink>
       </SuiBox>
       <Divider />
       <List>{renderRoutes}</List>
-      <SuiBox customClass={classes.sidenav_footer}>
-        <SidenavCard />
-        <SuiBox mt={2}>
-          <SuiButton
-            component="a"
-            href="https://appseed.us/full-stack/react-soft-ui-dashboard"
-            target="_blank"
-            rel="noreferrer"
-            variant="gradient"
-            buttonColor="info"
-            fullWidth
-          >
-            Pro Version
-          </SuiButton>
-        </SuiBox>
-      </SuiBox>
     </Drawer>
   );
 }
