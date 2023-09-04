@@ -1,11 +1,17 @@
 from django.db import models
-
+import hashlib
+from datetime import datetime
 from django.contrib.auth.models import (
     AbstractBaseUser,
     BaseUserManager,
     PermissionsMixin,
 )
 
+def key_generator():
+    now = datetime.now()
+    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+    api_key = hashlib.sha256(dt_string.encode()).hexdigest()
+    return api_key
 
 class UserManager(BaseUserManager):
     def create_user(self, username, email, password=None, **kwargs):
@@ -43,6 +49,9 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(db_index=True, max_length=255, unique=True)
     email = models.EmailField(db_index=True, unique=True)
+
+    key = key_generator()
+    api_key = models.EmailField(db_index=True, default=key ,unique=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     date = models.DateTimeField(auto_now_add=True)

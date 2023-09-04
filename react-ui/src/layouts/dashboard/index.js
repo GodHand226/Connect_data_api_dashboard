@@ -16,35 +16,48 @@ Coded by www.creative-tim.com
 // @mui material components
 import Grid from "@mui/material/Grid";
 import Icon from "@mui/material/Icon";
-
+import axios from "axios";
 // Soft UI Dashboard React components
 import SuiBox from "components/SuiBox";
 import SuiTypography from "components/SuiTypography";
-
+import React, { useEffect } from "react";
 // Soft UI Dashboard React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import MiniStatisticsCard from "examples/Cards/StatisticsCards/MiniStatisticsCard";
-import ReportsBarChart from "examples/Charts/BarCharts/ReportsBarChart";
+// import ReportsBarChart from "examples/Charts/BarCharts/ReportsBarChart";
 import GradientLineChart from "examples/Charts/LineCharts/GradientLineChart";
-
+import Card from "@mui/material/Card";
 // Soft UI Dashboard React base styles
 import typography from "assets/theme/base/typography";
-
+import LabelItem from "./labelItem";
 // Dashboard layout components
-import BuildByDevelopers from "layouts/dashboard/components/BuildByDevelopers";
-import WorkWithTheRockets from "layouts/dashboard/components/WorkWithTheRockets";
-import Projects from "layouts/dashboard/components/Projects";
-import OrderOverview from "layouts/dashboard/components/OrderOverview";
+// import BuildByDevelopers from "layouts/dashboard/components/BuildByDevelopers";
+// import WorkWithTheRockets from "layouts/dashboard/components/WorkWithTheRockets";
+// import Projects from "layouts/dashboard/components/Projects";
+// import OrderOverview from "layouts/dashboard/components/OrderOverview";
 
 // Data
-import reportsBarChartData from "layouts/dashboard/data/reportsBarChartData";
+// import reportsBarChartData from "layouts/dashboard/data/reportsBarChartData";
 import gradientLineChartData from "layouts/dashboard/data/gradientLineChartData";
 
 function Dashboard() {
   const { size } = typography;
-  const { chart, items } = reportsBarChartData;
+  // const { chart, items } = reportsBarChartData;
+  const [key, setKey] = React.useState(undefined);
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const res = await axios.get(`http://localhost:5000/api/users/dashboard`);
+        setKey(res.data);
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    getData();
+  });
 
   return (
     <DashboardLayout>
@@ -52,70 +65,51 @@ function Dashboard() {
       <SuiBox py={3}>
         <SuiBox mb={3}>
           <Grid container spacing={3}>
-            <Grid item xs={12} sm={6} xl={3}>
+            <Grid item xs={12} sm={6} xl={6}>
               <MiniStatisticsCard
-                title={{ text: "today's money" }}
-                count="$53,000"
-                percentage={{ color: "success", text: "+55%" }}
-                icon={{ color: "info", component: "paid" }}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6} xl={3}>
-              <MiniStatisticsCard
-                title={{ text: "today's users" }}
-                count="2,300"
-                percentage={{ color: "success", text: "+3%" }}
-                icon={{ color: "info", component: "public" }}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6} xl={3}>
-              <MiniStatisticsCard
-                title={{ text: "new clients" }}
-                count="+3,462"
-                percentage={{ color: "error", text: "-2%" }}
-                icon={{ color: "info", component: "emoji_events" }}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6} xl={3}>
-              <MiniStatisticsCard
-                title={{ text: "sales" }}
-                count="$103,430"
-                percentage={{ color: "success", text: "+5%" }}
-                icon={{
-                  color: "info",
-                  component: "shopping_cart",
-                }}
+                title={{ text: "API_KEY" }}
+                count={key}
+                icon={{ color: "info", component: "key" }}
               />
             </Grid>
           </Grid>
         </SuiBox>
         <SuiBox mb={3}>
           <Grid container spacing={3}>
-            <Grid item xs={12} lg={7}>
-              <BuildByDevelopers />
-            </Grid>
             <Grid item xs={12} lg={5}>
-              <WorkWithTheRockets />
-            </Grid>
-          </Grid>
-        </SuiBox>
-        <SuiBox mb={3}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} lg={5}>
-              <ReportsBarChart
-                title="active users"
-                description={
-                  <>
-                    (<strong>+23%</strong>) than last week
-                  </>
-                }
-                chart={chart}
-                items={items}
-              />
+              <Card>
+                <SuiBox p={3}>
+                  <SuiBox mb={2}>
+                    <SuiTypography variant="h6" textTransform="capitalize">
+                      API Information
+                    </SuiTypography>
+                  </SuiBox>
+                  <SuiBox py={1} px={0.5}>
+                    <LabelItem
+                      color="info"
+                      icon="payment"
+                      label="Your Payment"
+                      size="14"
+                    ></LabelItem>
+                    <LabelItem
+                      color="error"
+                      icon="touch_app"
+                      label="Requests"
+                      size="14"
+                    ></LabelItem>
+                    <LabelItem
+                      color="warning"
+                      icon="speed"
+                      label="Rate Limit"
+                      size="14"
+                    ></LabelItem>
+                  </SuiBox>
+                </SuiBox>
+              </Card>
             </Grid>
             <Grid item xs={12} lg={7}>
               <GradientLineChart
-                title="Sales Overview"
+                title="Requests"
                 description={
                   <SuiBox display="flex" alignItems="center">
                     <SuiBox fontSize={size.lg} color="success" mb={0.3} mr={0.5} lineHeight={0}>
@@ -135,14 +129,6 @@ function Dashboard() {
             </Grid>
           </Grid>
         </SuiBox>
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={6} lg={8}>
-            <Projects />
-          </Grid>
-          <Grid item xs={12} md={6} lg={4}>
-            <OrderOverview />
-          </Grid>
-        </Grid>
       </SuiBox>
       <Footer />
     </DashboardLayout>
