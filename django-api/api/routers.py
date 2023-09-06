@@ -3,8 +3,8 @@ from api.authentication.viewsets import (
     LoginViewSet,
     ActiveSessionViewSet,
     LogoutViewSet,
+    ApiViewSet,
 )
-from api.dashboard.views import DashboardViewSet
 from rest_framework import routers
 from api.user.viewsets import UserViewSet
 
@@ -20,7 +20,7 @@ router.register(r"checkSession", ActiveSessionViewSet, basename="check-session")
 
 router.register(r"logout", LogoutViewSet, basename="logout")
 
-router.register(r"dashboard", DashboardViewSet, basename="dashboard")
+router.register(r"dashboard", ApiViewSet, basename="dashboard")
 
 urlpatterns = [
     *router.urls,

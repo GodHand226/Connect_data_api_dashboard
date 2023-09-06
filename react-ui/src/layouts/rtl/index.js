@@ -26,7 +26,7 @@ import SuiTypography from "components/SuiTypography";
 // Soft UI Dashboard React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-import Footer from "examples/Footer";
+// import Footer from "examples/Footer";
 import MiniStatisticsCard from "examples/Cards/StatisticsCards/MiniStatisticsCard";
 import ReportsBarChart from "examples/Charts/BarCharts/ReportsBarChart";
 import GradientLineChart from "examples/Charts/LineCharts/GradientLineChart";
@@ -157,7 +157,7 @@ function RTL() {
           </Grid>
         </Grid>
       </SuiBox>
-      <Footer />
+      {/* <Footer /> */}
     </DashboardLayout>
   );
 }

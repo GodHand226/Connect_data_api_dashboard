@@ -27,7 +27,7 @@ import SuiBox from "components/SuiBox";
 // Soft UI Dashboard React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-import Footer from "examples/Footer";
+// import Footer from "examples/Footer";
 import Sidenav from "examples/Sidenav";
 
 // Soft UI Dashboard React context
@@ -92,9 +92,9 @@ function BaseLayout({ children }) {
           <DashboardLayout>{children}</DashboardLayout>
         </SuiBox>
       </SuiBox>
-      <SuiBox pb={2}>
+      {/* <SuiBox pb={2}>
         <Footer />
-      </SuiBox>
+      </SuiBox> */}
     </SuiBox>
   );
 }

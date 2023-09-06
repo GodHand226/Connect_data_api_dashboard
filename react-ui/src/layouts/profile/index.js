@@ -28,7 +28,7 @@ import SuiTypography from "components/SuiTypography";
 
 // Soft UI Dashboard React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
-import Footer from "examples/Footer";
+// import Footer from "examples/Footer";
 import ProfileInfoCard from "examples/Cards/InfoCards/ProfileInfoCard";
 import ProfilesList from "examples/ProfilesList";
 import DefaultProjectCard from "examples/Cards/ProjectCards/DefaultProjectCard";
@@ -178,7 +178,7 @@ function Overview() {
         </Card>
       </SuiBox>
 
-      <Footer />
+      {/* <Footer /> */}
     </DashboardLayout>
   );
 }

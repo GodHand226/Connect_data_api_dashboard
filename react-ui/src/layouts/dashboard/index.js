@@ -24,7 +24,7 @@ import React, { useEffect } from "react";
 // Soft UI Dashboard React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-import Footer from "examples/Footer";
+// import Footer from "examples/Footer";
 import MiniStatisticsCard from "examples/Cards/StatisticsCards/MiniStatisticsCard";
 // import ReportsBarChart from "examples/Charts/BarCharts/ReportsBarChart";
 import GradientLineChart from "examples/Charts/LineCharts/GradientLineChart";
@@ -41,21 +41,26 @@ import LabelItem from "./labelItem";
 // Data
 // import reportsBarChartData from "layouts/dashboard/data/reportsBarChartData";
 import gradientLineChartData from "layouts/dashboard/data/gradientLineChartData";
-
+import { useAuth } from "../../auth-context/auth.context";
 function Dashboard() {
   const { size } = typography;
   // const { chart, items } = reportsBarChartData;
   const [key, setKey] = React.useState(undefined);
-
+  const [plan, setPlan] = React.useState(undefined);
+  let { user } = useAuth();
+  const getData = async () => {
+    try {
+      const res = await axios.post(`http://localhost:5000/api/users/dashboard`, user, {
+        headers: { Authorization: `${user.token}` },
+      });
+      const data = res.data;
+      setKey(data["API_KEY"]);
+      setPlan(data["plan"]);
+    } catch (e) {
+      console.error(e);
+    }
+  };
   useEffect(() => {
-    const getData = async () => {
-      try {
-        const res = await axios.get(`http://localhost:5000/api/users/dashboard`);
-        setKey(res.data);
-      } catch (e) {
-        console.error(e);
-      }
-    };
     getData();
   });
 
@@ -70,6 +75,13 @@ function Dashboard() {
                 title={{ text: "API_KEY" }}
                 count={key}
                 icon={{ color: "info", component: "key" }}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6} xl={6}>
+              <MiniStatisticsCard
+                title={{ text: "Plan" }}
+                count={plan}
+                icon={{ color: "info", component: "article" }}
               />
             </Grid>
           </Grid>
@@ -130,7 +142,7 @@ function Dashboard() {
           </Grid>
         </SuiBox>
       </SuiBox>
-      <Footer />
+      {/* <Footer /> */}
     </DashboardLayout>
   );
 }

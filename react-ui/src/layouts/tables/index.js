@@ -23,7 +23,7 @@ import SuiTypography from "components/SuiTypography";
 // Soft UI Dashboard React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-import Footer from "examples/Footer";
+// import Footer from "examples/Footer";
 // import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -217,7 +217,7 @@ function Tables() {
           </Card>
         </SuiBox>
       </SuiBox>
-      <Footer />
+      {/* <Footer /> */}
     </DashboardLayout>
   );
 }
