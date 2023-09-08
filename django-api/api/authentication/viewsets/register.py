@@ -13,7 +13,7 @@ def key_generator():
     now = datetime.now()
     dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
     api_key = hashlib.sha256(dt_string.encode()).hexdigest()
-    return api_key, dt_string
+    return api_key
 
 def insert_api_info(email):
     # myclient = pymongo.MongoClient("mongodb+srv://mangesh:qetBL9rmcmb2Zo1L@cluster1.iurr8uo.mongodb.net/")
@@ -21,11 +21,10 @@ def insert_api_info(email):
     # mycol = mydb["api_info"]
 
     info = {}
-    key, dt = key_generator()
+    key = key_generator()
     info["email"] = email
     info["API_KEY"] = key
-    info["plan"] = "Primary"
-    info["Date"] = dt
+    info["Record"] = 100
 
     try:
         mycol.insert_one(info)
