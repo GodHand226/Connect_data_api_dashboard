@@ -16,6 +16,7 @@ Coded by www.creative-tim.com
 // @mui material components
 import Card from "@mui/material/Card";
 import * as React from "react";
+import axios from "axios";
 // Soft UI Dashboard React components
 import SuiBox from "components/SuiBox";
 import SuiTypography from "components/SuiTypography";
@@ -32,6 +33,7 @@ import Grid from "@mui/material/Grid";
 import SearchIcon from "@mui/icons-material/Search";
 import SuiInput from "components/SuiInput";
 import SuiButton from "components/SuiButton";
+import Snippet from "./components/index";
 // import Table from "examples/Table";
 
 // Custom styles for the Tables
@@ -48,6 +50,7 @@ function Tables() {
   const [max_age, setMaxAge] = React.useState(500);
   const [city, setCity] = React.useState("");
   const [zip, setZip] = React.useState("");
+  const [res, setRes] = React.useState("");
 
   const handleChange = (event) => {
     setPhone(event.target.value);
@@ -67,7 +70,19 @@ function Tables() {
   const ZipChange = (event) => {
     setZip(event.target.value);
   };
-  const Searchclicked = () => {};
+  const getdata = async () => {
+    const url = "http://localhost/api?phone=wireless&state=TX&zip=75032&min_age=50&max_age=60";
+
+    const header = {
+      access_token: "69c317b02b2bcb1d908e09f4070f59e58326abe4f62cea571cfa01831c3195ae",
+    };
+    const result = await axios.get(url, { headers: header });
+    return result.data;
+  };
+  const Searchclicked = async () => {
+    const data = JSON.stringify(await getdata(), null, 2);
+    setRes(data);
+  };
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -216,7 +231,13 @@ function Tables() {
             </Grid>
           </Card>
         </SuiBox>
+        <SuiBox>
+          <Snippet title="cURL" code="asdfasfa"></Snippet>
+          <Snippet title="Request URL" code="asdfasdf"></Snippet>
+          <Snippet title="Response" code={res}></Snippet>
+        </SuiBox>
       </SuiBox>
+
       {/* <Footer /> */}
     </DashboardLayout>
   );
