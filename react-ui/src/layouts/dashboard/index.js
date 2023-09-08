@@ -33,20 +33,14 @@ import Card from "@mui/material/Card";
 import typography from "assets/theme/base/typography";
 import LabelItem from "./labelItem";
 // Dashboard layout components
-// import BuildByDevelopers from "layouts/dashboard/components/BuildByDevelopers";
-// import WorkWithTheRockets from "layouts/dashboard/components/WorkWithTheRockets";
-// import Projects from "layouts/dashboard/components/Projects";
-// import OrderOverview from "layouts/dashboard/components/OrderOverview";
 
-// Data
-// import reportsBarChartData from "layouts/dashboard/data/reportsBarChartData";
 import gradientLineChartData from "layouts/dashboard/data/gradientLineChartData";
 import { useAuth } from "../../auth-context/auth.context";
 function Dashboard() {
   const { size } = typography;
   // const { chart, items } = reportsBarChartData;
   const [key, setKey] = React.useState(undefined);
-  const [plan, setPlan] = React.useState(undefined);
+  const [record, setRecord] = React.useState(undefined);
   let { user } = useAuth();
   const getData = async () => {
     try {
@@ -55,7 +49,7 @@ function Dashboard() {
       });
       const data = res.data;
       setKey(data["API_KEY"]);
-      setPlan(data["plan"]);
+      setRecord(data["Record"]);
     } catch (e) {
       console.error(e);
     }
@@ -79,8 +73,8 @@ function Dashboard() {
             </Grid>
             <Grid item xs={12} sm={6} xl={6}>
               <MiniStatisticsCard
-                title={{ text: "Plan" }}
-                count={plan}
+                title={{ text: "Requests" }}
+                count={record}
                 icon={{ color: "info", component: "article" }}
               />
             </Grid>
@@ -97,24 +91,45 @@ function Dashboard() {
                     </SuiTypography>
                   </SuiBox>
                   <SuiBox py={1} px={0.5}>
-                    <LabelItem
-                      color="info"
-                      icon="payment"
-                      label="Your Payment"
-                      size="14"
-                    ></LabelItem>
-                    <LabelItem
-                      color="error"
-                      icon="touch_app"
-                      label="Requests"
-                      size="14"
-                    ></LabelItem>
-                    <LabelItem
-                      color="warning"
-                      icon="speed"
-                      label="Rate Limit"
-                      size="14"
-                    ></LabelItem>
+                    <SuiBox
+                      display="flex"
+                      justify-content="space-between"
+                      alignItems="center"
+                      mb={2}
+                    >
+                      <LabelItem
+                        color="info"
+                        icon="payment"
+                        label="Your Payment"
+                        size="14"
+                      ></LabelItem>
+                      <SuiTypography variant="h6">0.00$</SuiTypography>
+                    </SuiBox>
+                    <SuiBox
+                      display="flex"
+                      justify-content="space-between"
+                      alignItems="center"
+                      mb={2}
+                    >
+                      <LabelItem
+                        color="error"
+                        icon="touch_app"
+                        label="Price per record"
+                        size="14"
+                      ></LabelItem>
+                      <SuiTypography variant="h6">0.05$</SuiTypography>
+                    </SuiBox>
+                    <SuiBox display="flex" justify-content="space-between" alignItems="center">
+                      <LabelItem
+                        color="warning"
+                        icon="speed"
+                        label="Rate Limit"
+                        size="14"
+                      ></LabelItem>
+                      <SuiTypography variant="h6" component="pre">
+                        15 requests/min
+                      </SuiTypography>
+                    </SuiBox>
                   </SuiBox>
                 </SuiBox>
               </Card>

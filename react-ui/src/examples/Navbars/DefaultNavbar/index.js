@@ -86,8 +86,6 @@ function DefaultNavbar({ transparent, light }) {
           </SuiTypography>
         </SuiBox>
         <SuiBox color="inherit" display={{ xs: "none", lg: "flex" }} m={0} p={0}>
-          <DefaultNavbarLink icon="account_circle" name="Plan" route="/plan" light={light} />
-          <DefaultNavbarLink icon="account_circle" name="API" route="/api" light={light} />
           <DefaultNavbarLink
             icon="account_circle"
             name="sign up"

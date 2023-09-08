@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Soft UI Dashboard React - v2.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-material-ui
-* Copyright 2021 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 // @mui material components
 import Card from "@mui/material/Card";
 import * as React from "react";
@@ -45,18 +30,21 @@ import Snippet from "./components/index";
 
 function Tables() {
   const [phone, setPhone] = React.useState("");
-  const [state, setState] = React.useState("");
+  const [state, setState] = React.useState([]);
   const [min_age, setMinAge] = React.useState(0);
   const [max_age, setMaxAge] = React.useState(500);
-  const [city, setCity] = React.useState("");
-  const [zip, setZip] = React.useState("");
+  const [city, setCity] = React.useState([]);
+  const [zip, setZip] = React.useState([]);
   const [res, setRes] = React.useState("");
+  const [cities, setCities] = React.useState([]);
+  const [zips, setZips] = React.useState([]);
 
   const handleChange = (event) => {
     setPhone(event.target.value);
   };
   const stateChange = (event) => {
     setState(event.target.value);
+    setCities([]);
   };
   const MinAgeChange = (event) => {
     setMinAge(event.target.value);
@@ -66,6 +54,7 @@ function Tables() {
   };
   const CityChange = (event) => {
     setCity(event.target.value);
+    setZips([]);
   };
   const ZipChange = (event) => {
     setZip(event.target.value);
@@ -95,7 +84,7 @@ function Tables() {
             <Grid container p={2}>
               <Grid item xs={3}>
                 <SuiBox p={1} display="flex" justifyContent="center" alignItems="center">
-                  <SuiTypography variant="h6" p={2}>
+                  <SuiTypography variant="h6" component="h6" p={2}>
                     Phone Type:
                   </SuiTypography>
                   <FormControl>
@@ -149,12 +138,10 @@ function Tables() {
                       <Select
                         labelId="demo-simple-select-standard-label"
                         id="state_select"
+                        multiple
                         value={state}
                         onChange={stateChange}
                       >
-                        <MenuItem value="">
-                          <em>None</em>
-                        </MenuItem>
                         <MenuItem value={"AK"}>AK</MenuItem>
                         <MenuItem value={"AL"}>AL</MenuItem>
                         <MenuItem value={"AR"}>AR</MenuItem>
@@ -217,7 +204,23 @@ function Tables() {
                   <SuiTypography variant="h6" p={2}>
                     City:
                   </SuiTypography>
-                  <SuiInput id="city" value={city} onChange={CityChange}></SuiInput>
+                  <FormControl>
+                    <Select
+                      labelId="city_label"
+                      id="city"
+                      multiple
+                      value={city}
+                      onChange={CityChange}
+                      label="City"
+                      style={{ width: "100%" }}
+                    >
+                      {cities.map((c) => (
+                        <MenuItem value={c} key={c}>
+                          {c}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
                 </SuiBox>
               </Grid>
               <Grid item xs={3}>
@@ -225,7 +228,23 @@ function Tables() {
                   <SuiTypography variant="h6" p={2}>
                     Zip:
                   </SuiTypography>
-                  <SuiInput id="zip" value={zip} onChange={ZipChange}></SuiInput>
+                  <FormControl>
+                    <Select
+                      labelId="zip_label"
+                      id="zip"
+                      multiple
+                      value={zip}
+                      onChange={ZipChange}
+                      label="Zip"
+                      style={{ width: "100%" }}
+                    >
+                      {zips.map((z) => (
+                        <MenuItem value={z} key={z}>
+                          {z}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
                 </SuiBox>
               </Grid>
             </Grid>

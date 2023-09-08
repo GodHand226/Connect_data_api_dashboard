@@ -30,34 +30,32 @@ function LabelItem({ color, icon, label, size }) {
   //   const { size } = typography;
 
   return (
-    <SuiBox width="100%">
-      <SuiBox display="flex" alignItems="center" mb={2}>
-        <SuiBox
-          backgroundColor={color}
-          width={2.5 * size}
-          height={2.5 * size}
-          borderRadius="sm"
-          color="white"
-          fontSize={size}
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          boxShadow="md"
-          mr={1}
-          backgroundGradient
-        >
-          <Icon>{icon}</Icon>
-        </SuiBox>
-        <SuiTypography
-          variant="caption"
-          textTransform="capitalize"
-          fontWeight="medium"
-          textColor="text"
-          fontSize={size}
-        >
-          {label}
-        </SuiTypography>
+    <SuiBox display="flex" alignItems="center" width="100%">
+      <SuiBox
+        backgroundColor={color}
+        width={2.5 * size}
+        height={2.5 * size}
+        borderRadius="sm"
+        color="white"
+        fontSize={size}
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        boxShadow="md"
+        mr={1}
+        backgroundGradient
+      >
+        <Icon>{icon}</Icon>
       </SuiBox>
+      <SuiTypography
+        variant="caption"
+        textTransform="capitalize"
+        fontWeight="medium"
+        textColor="text"
+        fontSize={size}
+      >
+        {label}
+      </SuiTypography>
     </SuiBox>
   );
 }
