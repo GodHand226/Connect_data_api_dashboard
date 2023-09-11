@@ -94,7 +94,7 @@ function SignIn() {
 
   return (
     <CoverLayout
-      title="Connect Data API"
+      title="Data API Connect"
       description={`${user && user.token ? "" : "Enter your email and password to sign in"}`}
       image={curved9}
     >

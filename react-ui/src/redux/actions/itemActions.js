@@ -1,8 +1,8 @@
 import * as Types from "../type";
 
-export const InsertKeyWord = (payload) => {
+export const InsertKey = (payload) => {
   return {
-    type: Types.INSERT_KEYWORD,
+    type: Types.INSERT_APIKEY,
     item: payload,
   };
 };

@@ -160,7 +160,7 @@ export default function App() {
           <>
             <Sidenav routes={routes} />
             <Configurator />
-            {configsButton}
+            {/* {configsButton} */}
           </>
         )}
         {layout === "vr" && <Configurator />}

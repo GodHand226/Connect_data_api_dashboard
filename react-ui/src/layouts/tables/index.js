@@ -5,7 +5,7 @@ import axios from "axios";
 // Soft UI Dashboard React components
 import SuiBox from "components/SuiBox";
 import SuiTypography from "components/SuiTypography";
-
+import TextField from "@mui/material/TextField";
 // Soft UI Dashboard React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
@@ -19,32 +19,31 @@ import SearchIcon from "@mui/icons-material/Search";
 import SuiInput from "components/SuiInput";
 import SuiButton from "components/SuiButton";
 import Snippet from "./components/index";
-// import Table from "examples/Table";
-
-// Custom styles for the Tables
-// import styles from "layouts/tables/styles";
-
-// Data
-// import authorsTableData from "layouts/tables/data/authorsTableData";
-// import projectsTableData from "layouts/tables/data/projectsTableData";
+import { useSelector } from "react-redux";
 
 function Tables() {
   const [phone, setPhone] = React.useState("");
   const [state, setState] = React.useState([]);
   const [min_age, setMinAge] = React.useState(0);
   const [max_age, setMaxAge] = React.useState(500);
-  const [city, setCity] = React.useState([]);
-  const [zip, setZip] = React.useState([]);
+  const [city, setCity] = React.useState("");
+  const [zip, setZip] = React.useState("");
+  const [record, setRecord] = React.useState("");
   const [res, setRes] = React.useState("");
-  const [cities, setCities] = React.useState([]);
-  const [zips, setZips] = React.useState([]);
+  // const [cities, setCities] = React.useState([]);
+  // const [zips, setZips] = React.useState([]);
+  const [curlcode, setCurl] = React.useState("");
+  const [url, setUrl] = React.useState("");
+  const [payload, setPayload] = React.useState("");
+
+  const items = useSelector((state) => state.items);
 
   const handleChange = (event) => {
     setPhone(event.target.value);
   };
   const stateChange = (event) => {
     setState(event.target.value);
-    setCities([]);
+    // setCities([]);
   };
   const MinAgeChange = (event) => {
     setMinAge(event.target.value);
@@ -54,21 +53,45 @@ function Tables() {
   };
   const CityChange = (event) => {
     setCity(event.target.value);
-    setZips([]);
+    // setZips([]);
   };
   const ZipChange = (event) => {
     setZip(event.target.value);
   };
   const getdata = async () => {
-    const url = "http://localhost/api?phone=wireless&state=TX&zip=75032&min_age=50&max_age=60";
+    const url = "http://localhost/api";
 
     const header = {
-      access_token: "69c317b02b2bcb1d908e09f4070f59e58326abe4f62cea571cfa01831c3195ae",
+      access_token: items,
     };
-    const result = await axios.get(url, { headers: header });
+    const data = {
+      phone: "wireless",
+      state: ["TX"],
+      city: [{ city }],
+      zip: [{ zip }],
+      min_age: 50,
+      max_age: 60,
+      record: 1,
+    };
+    const result = await axios.post(url, { headers: header, data: data });
     return result.data;
   };
   const Searchclicked = async () => {
+    let curl = `curl -X 'POST' 'http://localhost/api' -H 'accept: application/json' -H 'access_token: ${items}' -H 'Content-Type: application/json'`;
+    setCurl(curl);
+    setUrl("http://localhost/api");
+    setRecord("1");
+    let body = {
+      phone: phone,
+      state: state,
+      city: city,
+      zip: zip,
+      min_age: min_age,
+      max_age: max_age,
+      record: record,
+    };
+    console.log({ phone });
+    setPayload(JSON.stringify(body, null, 2));
     const data = JSON.stringify(await getdata(), null, 2);
     setRes(data);
   };
@@ -127,8 +150,8 @@ function Tables() {
                 </SuiButton>
               </Grid>
             </Grid>
-            <Grid container p={2}>
-              <Grid item xs={3}>
+            <Grid container p={2} display="flex" justifyContent="space-around" alignItems="center">
+              <Grid item xs={2}>
                 <SuiBox p={1} display="flex" justifyContent="center" alignItems="center">
                   <SuiTypography variant="h6" p={2}>
                     State:
@@ -199,16 +222,15 @@ function Tables() {
                   </SuiBox>
                 </SuiBox>
               </Grid>
-              <Grid item xs={3}>
+              <Grid item xs={2}>
                 <SuiBox p={1} display="flex" justifyContent="center" alignItems="center">
                   <SuiTypography variant="h6" p={2}>
                     City:
                   </SuiTypography>
-                  <FormControl>
+                  {/* <FormControl>
                     <Select
                       labelId="city_label"
                       id="city"
-                      multiple
                       value={city}
                       onChange={CityChange}
                       label="City"
@@ -220,19 +242,19 @@ function Tables() {
                         </MenuItem>
                       ))}
                     </Select>
-                  </FormControl>
+                  </FormControl> */}
+                  <SuiInput id="city" value={city} onChange={CityChange}></SuiInput>
                 </SuiBox>
               </Grid>
-              <Grid item xs={3}>
+              <Grid item xs={2}>
                 <SuiBox p={1} display="flex" justifyContent="center" alignItems="center">
                   <SuiTypography variant="h6" p={2}>
                     Zip:
                   </SuiTypography>
-                  <FormControl>
+                  {/* <FormControl>
                     <Select
                       labelId="zip_label"
                       id="zip"
-                      multiple
                       value={zip}
                       onChange={ZipChange}
                       label="Zip"
@@ -244,15 +266,31 @@ function Tables() {
                         </MenuItem>
                       ))}
                     </Select>
-                  </FormControl>
+                  </FormControl> */}
+                  <SuiInput id="zip" value={zip} onChange={ZipChange}></SuiInput>
+                </SuiBox>
+              </Grid>
+              <Grid item xs={2}>
+                <SuiBox p={1} display="flex" justifyContent="center" alignItems="center">
+                  <SuiTypography variant="h6" p={2}>
+                    Record:
+                  </SuiTypography>
+                  <TextField
+                    id="outlined-number"
+                    type="number"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
                 </SuiBox>
               </Grid>
             </Grid>
           </Card>
         </SuiBox>
         <SuiBox>
-          <Snippet title="cURL" code="asdfasfa"></Snippet>
-          <Snippet title="Request URL" code="asdfasdf"></Snippet>
+          <Snippet title="cURL" code={curlcode}></Snippet>
+          <Snippet title="Request URL" code={url}></Snippet>
+          <Snippet title="Body" code={payload}></Snippet>
           <Snippet title="Response" code={res}></Snippet>
         </SuiBox>
       </SuiBox>

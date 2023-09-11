@@ -36,11 +36,15 @@ import LabelItem from "./labelItem";
 
 import gradientLineChartData from "layouts/dashboard/data/gradientLineChartData";
 import { useAuth } from "../../auth-context/auth.context";
+import { useDispatch } from "react-redux";
+import { InsertKey } from "../../redux/actions/itemActions";
+
 function Dashboard() {
   const { size } = typography;
   // const { chart, items } = reportsBarChartData;
   const [key, setKey] = React.useState(undefined);
   const [record, setRecord] = React.useState(undefined);
+  const dispatch = useDispatch();
   let { user } = useAuth();
   const getData = async () => {
     try {
@@ -50,6 +54,7 @@ function Dashboard() {
       const data = res.data;
       setKey(data["API_KEY"]);
       setRecord(data["Record"]);
+      dispatch(InsertKey(data["API_KEY"]));
     } catch (e) {
       console.error(e);
     }
