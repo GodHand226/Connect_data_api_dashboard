@@ -1,76 +1,97 @@
-/**
-=========================================================
-* Soft UI Dashboard React - v2.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-material-ui
-* Copyright 2021 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
-// @mui material components
-import Grid from "@mui/material/Grid";
-
+// import SuiBox from "components/SuiBox";
+import SuiButton from "components/SuiButton";
 // Soft UI Dashboard React components
-import SuiBox from "components/SuiBox";
-
-// Soft UI Dashboard React components
-import MasterCard from "examples/Cards/MasterCard";
-import DefaultInfoCard from "examples/Cards/InfoCards/DefaultInfoCard";
-
-// Soft UI Dashboard React example components
+// import Link from "@mui/material/Link";
+import axios from "axios";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
+import SuiBox from "components/SuiBox";
+import SuiTypography from "components/SuiTypography";
+import "react-coinbase-commerce/dist/coinbase-commerce-button.css";
 
-// Billing page components
-import PaymentMethod from "layouts/billing/components/PaymentMethod";
-import Invoices from "layouts/billing/components/Invoices";
-// import BillingInformation from "layouts/billing/components/BillingInformation";
-// import Transactions from "layouts/billing/components/Transactions";
-
+import { ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { useState } from "react";
+import { API_SERVER } from "../../config/constant";
+import { useAuth } from "../../auth-context/auth.context";
 function Billing() {
+  let array = [10, 50, 100, 500];
+  let { user } = useAuth();
+
+  // let check = {
+  //   10: "https://commerce.coinbase.com/checkout/4a8a7c28-25f0-479b-a57d-93176366fb0a",
+  //   50: "https://commerce.coinbase.com/checkout/0c4410c7-aab7-4fb3-b60a-63db719778e7",
+  //   100: "https://commerce.coinbase.com/checkout/ccb68179-2263-4132-a9a5-c78e00cbc46b",
+  //   500: "https://commerce.coinbase.com/checkout/c521ad37-a90c-4d76-819e-4ace54f01b62",
+  // };
+  const [alignment, setAlignment] = useState("10");
+  const handleAlignment = (event, newAlignment) => {
+    setAlignment(newAlignment);
+  };
+  const getCharge = async () => {
+    let res = "";
+    try {
+      res = await axios.post(
+        `${API_SERVER}/users/payment`,
+        { alignment },
+        {
+          headers: { Authorization: `${user.token}` },
+        }
+      );
+      console.log(res);
+    } catch (e) {
+      console.error(e);
+    }
+    return res;
+  };
+  const openInNewTab = (url) => {
+    const newWindow = window.open(url, "_blank", "noopener,noreferrer");
+    if (newWindow) newWindow.opener = null;
+  };
+  const checkClicked = async () => {
+    const result = await getCharge();
+    const data = result.data;
+    console.log(data);
+    const charge = data["charge"];
+    openInNewTab(charge.hosted_url);
+  };
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <SuiBox mt={4}>
-        <SuiBox mb={1.5}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} lg={8}>
-              <Grid container spacing={3}>
-                <Grid item xs={12} xl={6}>
-                  <MasterCard number={4562112245947852} holder="jack peterson" expires="11/22" />
-                </Grid>
-                <Grid item xs={12} md={6} xl={3}>
-                  <DefaultInfoCard
-                    icon="account_balance"
-                    title="salary"
-                    description="Belong Interactive"
-                    value="+$2000"
-                  />
-                </Grid>
-                <Grid item xs={12} md={6} xl={3}>
-                  <DefaultInfoCard
-                    icon="paypal"
-                    title="paypal"
-                    description="Freelance Payment"
-                    value="$455.00"
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <PaymentMethod />
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item xs={12} lg={4}>
-              <Invoices />
-            </Grid>
-          </Grid>
-        </SuiBox>
+      <SuiBox display="flex" justifyContent="center">
+        <ToggleButtonGroup
+          value={alignment}
+          exclusive
+          onChange={handleAlignment}
+          aria-label="text alignment"
+        >
+          {array.map((price) => (
+            <ToggleButton value={price} key={price} sx={{ marginX: "30px" }}>
+              <SuiBox>
+                <SuiBox px={6} py={10} sx={{ borderBottom: "1px solid" }}>
+                  <SuiTypography variant="h3">Records</SuiTypography>
+                  <SuiTypography variant="h3">{price * 20}</SuiTypography>
+                </SuiBox>
+                <SuiBox>
+                  <SuiTypography variant="h3" py={5}>
+                    {price}$
+                  </SuiTypography>
+                </SuiBox>
+              </SuiBox>
+            </ToggleButton>
+          ))}
+        </ToggleButtonGroup>
+      </SuiBox>
+      <SuiBox display="flex" justifyContent="center" mt={10}>
+        <SuiButton
+          buttonColor="info"
+          startIcon={<AddShoppingCartIcon />}
+          variant="outlined"
+          size="large"
+          onClick={checkClicked}
+        >
+          CheckOut
+        </SuiButton>
       </SuiBox>
     </DashboardLayout>
   );

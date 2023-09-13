@@ -31,7 +31,7 @@ SECRET_KEY = env('SECRET_KEY', default='insecure-S#perS3crEt_007')
 DEBUG = int(env("DEBUG", default=0))
 
 ALLOWED_HOSTS = env("DJANGO_ALLOWED_HOSTS", default="*").split(" ")
-
+COINBASE_COMMERCE_API_KEY = '543ef827-8b59-4f65-9d93-b75727afd194'
 # Application definition
 
 INSTALLED_APPS = [
@@ -82,30 +82,30 @@ WSGI_APPLICATION = "core.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE"  : env("DB_ENGINE"  , default="django.db.backends.sqlite3"),
-#         "NAME"    : env("DB_DATABASE", default=os.path.join(BASE_DIR, "db.sqlite3")),
-#         "USER"    : env("DB_USER"    , default=None),
-#         "PASSWORD": env("DB_PASSWORD", default=None),
-#         "HOST"    : env("DB_HOST"    , default=None),
-#         "PORT"    : env("DB_PORT"    , default=None),
-#     }
-# }
-
 DATABASES = {
     "default": {
-        "ENGINE"  : "django.db.backends.mysql",
-        "NAME"    : "dataleads",
-        "USER"    : "dataleads",
-        "PASSWORD": "123qwe!@#QWE",
-        "HOST"    : "127.0.0.1",
-        "PORT"    : "3306",
-        'OPTIONS': {  
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"  
-        }  
+        "ENGINE"  : env("DB_ENGINE"  , default="django.db.backends.sqlite3"),
+        "NAME"    : env("DB_DATABASE", default=os.path.join(BASE_DIR, "db.sqlite3")),
+        "USER"    : env("DB_USER"    , default=None),
+        "PASSWORD": env("DB_PASSWORD", default=None),
+        "HOST"    : env("DB_HOST"    , default=None),
+        "PORT"    : env("DB_PORT"    , default=None),
     }
 }
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE"  : "django.db.backends.mysql",
+#         "NAME"    : "dataleads",
+#         "USER"    : "dataleads",
+#         "PASSWORD": "123qwe!@#QWE",
+#         "HOST"    : "127.0.0.1",
+#         "PORT"    : "3306",
+#         'OPTIONS': {  
+#             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"  
+#         }  
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

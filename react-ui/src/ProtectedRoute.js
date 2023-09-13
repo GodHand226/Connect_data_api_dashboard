@@ -3,7 +3,7 @@ import { Route } from "react-router-dom";
 import { useAuth } from "auth-context/auth.context";
 import { useHistory } from "react-router-dom";
 import SweetAlert from "react-bootstrap-sweetalert";
-
+// import Home from "layouts/home";
 export const ProtectedRoute = ({ ...rest }) => {
   const history = useHistory();
   let { user } = useAuth();

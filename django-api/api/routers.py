@@ -4,6 +4,8 @@ from api.authentication.viewsets import (
     ActiveSessionViewSet,
     LogoutViewSet,
     ApiViewSet,
+    PaymentViewSet,
+    WebHookViewSet
 )
 from rest_framework import routers
 from api.user.viewsets import UserViewSet
@@ -21,6 +23,10 @@ router.register(r"checkSession", ActiveSessionViewSet, basename="check-session")
 router.register(r"logout", LogoutViewSet, basename="logout")
 
 router.register(r"dashboard", ApiViewSet, basename="dashboard")
+
+router.register(r"payment", PaymentViewSet, basename="payment")
+
+router.register(r"webhook", WebHookViewSet, basename="webhook")
 
 urlpatterns = [
     *router.urls,

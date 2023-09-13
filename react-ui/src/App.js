@@ -13,27 +13,15 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-import { useState, useEffect, useMemo } from "react";
+import { useEffect } from "react";
 
 // react-router components
 import { Route, Switch, Redirect, useLocation } from "react-router-dom";
 
 // jss components
-import { create } from "jss";
-
-// jss-rtl components
-import rtl from "jss-rtl";
-
-// @mui style components
-import { StylesProvider, jssPreset } from "@mui/styles";
-
 // @mui material components
 import { ThemeProvider, StyledEngineProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import Icon from "@mui/material/Icon";
-
-// Soft UI Dashboard PRO React components
-import SuiBox from "components/SuiBox";
 
 // Soft UI Dashboard PRO React example components
 import Sidenav from "examples/Sidenav";
@@ -41,7 +29,7 @@ import Configurator from "examples/Configurator";
 
 // Soft UI Dashboard PRO React themes
 import theme from "assets/theme";
-import themeRTL from "assets/theme/theme-rtl";
+// import themeRTL from "assets/theme/theme-rtl";
 
 // Soft UI Dashboard PRO React routes
 import routes from "routes";
@@ -49,38 +37,12 @@ import routes from "routes";
 // Soft UI Dashboard PRO React contexts
 import { useSoftUIController } from "context";
 
-import rtlPlugin from "stylis-plugin-rtl";
-import { CacheProvider } from "@emotion/react";
-import createCache from "@emotion/cache";
-
 import { ProtectedRoute } from "./ProtectedRoute";
 
 export default function App() {
-  const [controller, dispatch] = useSoftUIController();
-  const { direction, layout, openConfigurator } = controller;
-  const [rtlCache, setRtlCache] = useState(null);
+  const [controller] = useSoftUIController();
+  const { direction, layout } = controller;
   const { pathname } = useLocation();
-
-  // JSS presets for the rtl
-  const jss = create({
-    plugins: [...jssPreset().plugins, rtl()],
-  });
-
-  // Cache for the rtl
-  useMemo(() => {
-    const cacheRtl = createCache({
-      key: "rtl",
-      prepend: true,
-      stylisPlugins: [rtlPlugin],
-    });
-
-    setRtlCache(cacheRtl);
-  }, []);
-
-  // Change the openConfigurator state
-  const handleConfiguratorOpen = () => {
-    dispatch({ type: "OPEN_CONFIGURATOR", value: !openConfigurator });
-  };
 
   // Setting the dir attribute for the body element
   useEffect(() => {
@@ -109,50 +71,7 @@ export default function App() {
       return null;
     });
 
-  const configsButton = (
-    <SuiBox
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-      width="3.5rem"
-      height="3.5rem"
-      backgroundColor="white"
-      boxShadow="sm"
-      borderRadius="50%"
-      position="fixed"
-      right="2rem"
-      bottom="2rem"
-      zIndex={99}
-      customClass="cursor-pointer"
-      onClick={handleConfiguratorOpen}
-    >
-      <Icon className=" text-dark" fontSize="default">
-        settings
-      </Icon>
-    </SuiBox>
-  );
-
-  return direction === "rtl" ? (
-    <CacheProvider value={rtlCache}>
-      <StylesProvider jss={jss}>
-        <ThemeProvider theme={themeRTL}>
-          <CssBaseline />
-          {layout === "dashboard" && (
-            <>
-              <Sidenav routes={routes} />
-              <Configurator />
-              {configsButton}
-            </>
-          )}
-          {layout === "vr" && <Configurator />}
-          <Switch>
-            {getRoutes(routes)}
-            <Redirect from="*" to="/authentication/sign-in" />
-          </Switch>
-        </ThemeProvider>
-      </StylesProvider>
-    </CacheProvider>
-  ) : (
+  return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
         <CssBaseline />
@@ -166,7 +85,7 @@ export default function App() {
         {layout === "vr" && <Configurator />}
         <Switch>
           {getRoutes(routes)}
-          <Redirect from="*" to="/dashboard" />
+          <Redirect from="*" to="/home" />
         </Switch>
       </ThemeProvider>
     </StyledEngineProvider>

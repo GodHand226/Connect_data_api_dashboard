@@ -39,7 +39,6 @@ Coded by www.creative-tim.com
 import Dashboard from "layouts/dashboard";
 import Tables from "layouts/tables";
 import Billing from "layouts/billing";
-// import VirtualReality from "layouts/virtual-reality";
 // import RTL from "layouts/rtl";
 import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
@@ -54,8 +53,9 @@ import Document from "examples/Icons/Document";
 import SpaceShip from "examples/Icons/SpaceShip";
 import CustomerSupport from "examples/Icons/CustomerSupport";
 import CreditCard from "examples/Icons/CreditCard";
+import Home from "layouts/home";
 // import VirtualReality from "layouts/virtual-reality";
-// import Cube from "examples/Icons/Cube";
+import Cube from "examples/Icons/Cube";
 
 const routes = [
   {
@@ -88,26 +88,15 @@ const routes = [
     noCollapse: true,
     protected: true,
   },
-  // {
-  //   type: "collapse",
-  //   name: "Plan",
-  //   key: "plan",
-  //   route: "/plan",
-  //   icon: <Cube size="12px" />,
-  //   component: VirtualReality,
-  //   noCollapse: true,
-  //   protected: true,
-  // },
-  // {
-  //   type: "collapse",
-  //   name: "API",
-  //   key: "rtl",
-  //   route: "/api",
-  //   icon: <Settings size="12px" />,
-  //   component: RTL,
-  //   noCollapse: true,
-  //   protected: true,
-  // },
+  {
+    type: "collapse",
+    name: "API",
+    key: "api",
+    route: "/api",
+    icon: <Cube size="12px" />,
+    component: Home,
+    noCollapse: true,
+  },
   { type: "title", title: "Account Pages", key: "account-pages" },
   {
     type: "collapse",
@@ -118,6 +107,51 @@ const routes = [
     component: Profile,
     noCollapse: true,
     protected: true,
+  },
+  {
+    type: "none",
+    name: "Home",
+    key: "home",
+    route: "/home",
+    icon: <Shop size="12px" />,
+    component: Home,
+    noCollapse: true,
+  },
+  {
+    type: "none",
+    name: "Data Clarity",
+    key: "data_clarity",
+    route: "/data-clarity",
+    icon: <Shop size="12px" />,
+    component: Home,
+    noCollapse: true,
+  },
+  {
+    type: "none",
+    name: "Pricing",
+    key: "pricing",
+    route: "/pricing",
+    icon: <Shop size="12px" />,
+    component: Home,
+    noCollapse: true,
+  },
+  {
+    type: "none",
+    name: "API",
+    key: "api",
+    route: "/api",
+    icon: <Shop size="12px" />,
+    component: Home,
+    noCollapse: true,
+  },
+  {
+    type: "none",
+    name: "Data Compliance",
+    key: "data_compliance",
+    route: "/data-compliance",
+    icon: <Shop size="12px" />,
+    component: Home,
+    noCollapse: true,
   },
   {
     type: "none",

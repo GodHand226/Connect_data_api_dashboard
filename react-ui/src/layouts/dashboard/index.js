@@ -15,7 +15,7 @@ Coded by www.creative-tim.com
 
 // @mui material components
 import Grid from "@mui/material/Grid";
-import Icon from "@mui/material/Icon";
+// import Icon from "@mui/material/Icon";
 import axios from "axios";
 // Soft UI Dashboard React components
 import SuiBox from "components/SuiBox";
@@ -30,31 +30,27 @@ import MiniStatisticsCard from "examples/Cards/StatisticsCards/MiniStatisticsCar
 import GradientLineChart from "examples/Charts/LineCharts/GradientLineChart";
 import Card from "@mui/material/Card";
 // Soft UI Dashboard React base styles
-import typography from "assets/theme/base/typography";
+// import typography from "assets/theme/base/typography";
 import LabelItem from "./labelItem";
 // Dashboard layout components
-
+import { API_SERVER } from "../../config/constant";
 import gradientLineChartData from "layouts/dashboard/data/gradientLineChartData";
 import { useAuth } from "../../auth-context/auth.context";
-import { useDispatch } from "react-redux";
-import { InsertKey } from "../../redux/actions/itemActions";
 
 function Dashboard() {
-  const { size } = typography;
+  // const { size } = typography;
   // const { chart, items } = reportsBarChartData;
   const [key, setKey] = React.useState(undefined);
   const [record, setRecord] = React.useState(undefined);
-  const dispatch = useDispatch();
   let { user } = useAuth();
   const getData = async () => {
     try {
-      const res = await axios.post(`http://localhost:5000/api/users/dashboard`, user, {
+      const res = await axios.post(`${API_SERVER}/users/dashboard`, user, {
         headers: { Authorization: `${user.token}` },
       });
       const data = res.data;
       setKey(data["API_KEY"]);
       setRecord(data["Record"]);
-      dispatch(InsertKey(data["API_KEY"]));
     } catch (e) {
       console.error(e);
     }
@@ -142,19 +138,7 @@ function Dashboard() {
             <Grid item xs={12} lg={7}>
               <GradientLineChart
                 title="Requests"
-                description={
-                  <SuiBox display="flex" alignItems="center">
-                    <SuiBox fontSize={size.lg} color="success" mb={0.3} mr={0.5} lineHeight={0}>
-                      <Icon className="font-bold">arrow_upward</Icon>
-                    </SuiBox>
-                    <SuiTypography variant="button" textColor="text" fontWeight="medium">
-                      4% more{" "}
-                      <SuiTypography variant="button" textColor="text" fontWeight="regular">
-                        in 2021
-                      </SuiTypography>
-                    </SuiTypography>
-                  </SuiBox>
-                }
+                description={""}
                 height="20.25rem"
                 chart={gradientLineChartData}
               />

@@ -16,24 +16,24 @@ Coded by www.creative-tim.com
 import { useState, useEffect } from "react";
 
 // @mui material components
-import Card from "@mui/material/Card";
-import Grid from "@mui/material/Grid";
-import AppBar from "@mui/material/AppBar";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
+// import Card from "@mui/material/Card";
+// import Grid from "@mui/material/Grid";
+// import AppBar from "@mui/material/AppBar";
+// import Tabs from "@mui/material/Tabs";
+// import Tab from "@mui/material/Tab";
 
 // Soft UI Dashboard PRO React components
 import SuiBox from "components/SuiBox";
-import SuiTypography from "components/SuiTypography";
-import SuiAvatar from "components/SuiAvatar";
+// import SuiTypography from "components/SuiTypography";
+// import SuiAvatar from "components/SuiAvatar";
 
 // Soft UI Dashboard PRO React example components
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 
 // Soft UI Dashboard PRO React icons
-import Cube from "examples/Icons/Cube";
-import Document from "examples/Icons/Document";
-import Settings from "examples/Icons/Settings";
+// import Cube from "examples/Icons/Cube";
+// import Document from "examples/Icons/Document";
+// import Settings from "examples/Icons/Settings";
 
 // Soft UI Dashboard PRO React base styles
 import breakpoints from "assets/theme/base/breakpoints";
@@ -42,11 +42,11 @@ import breakpoints from "assets/theme/base/breakpoints";
 import styles from "layouts/profile/components/Header/styles";
 
 // Images
-import burceMars from "assets/images/bruce-mars.jpg";
+// import burceMars from "assets/images/bruce-mars.jpg";
 
 function Header() {
   const [tabsOrientation, setTabsOrientation] = useState("horizontal");
-  const [tabValue, setTabValue] = useState(0);
+  // const [tabValue, setTabValue] = useState(0);
   const classes = styles();
 
   useEffect(() => {
@@ -69,13 +69,13 @@ function Header() {
     return () => window.removeEventListener("resize", handleTabsOrientation);
   }, [tabsOrientation]);
 
-  const handleSetTabValue = (event, newValue) => setTabValue(newValue);
+  // const handleSetTabValue = (event, newValue) => setTabValue(newValue);
 
   return (
     <SuiBox position="relative">
       <DashboardNavbar absolute light />
       <SuiBox customClass={classes.profileHeader_background} />
-      <Card className={classes.profileHeader_profile}>
+      {/* <Card className={classes.profileHeader_profile}>
         <Grid container spacing={3} alignItems="center">
           <Grid item>
             <SuiAvatar
@@ -111,7 +111,7 @@ function Header() {
             </AppBar>
           </Grid>
         </Grid>
-      </Card>
+      </Card> */}
     </SuiBox>
   );
 }

@@ -1,6 +1,7 @@
 // @mui material components
 import Card from "@mui/material/Card";
 import * as React from "react";
+import { useEffect } from "react";
 import axios from "axios";
 // Soft UI Dashboard React components
 import SuiBox from "components/SuiBox";
@@ -19,25 +20,26 @@ import SearchIcon from "@mui/icons-material/Search";
 import SuiInput from "components/SuiInput";
 import SuiButton from "components/SuiButton";
 import Snippet from "./components/index";
-import { useSelector } from "react-redux";
+import TagsInput from "./components/TagInput";
+import { API_SERVER } from "../../config/constant";
+import { useAuth } from "../../auth-context/auth.context";
 
 function Tables() {
   const [phone, setPhone] = React.useState("");
   const [state, setState] = React.useState([]);
   const [min_age, setMinAge] = React.useState(0);
   const [max_age, setMaxAge] = React.useState(500);
-  const [city, setCity] = React.useState("");
-  const [zip, setZip] = React.useState("");
-  const [record, setRecord] = React.useState("");
+  const [city, setCity] = React.useState([]);
+  const [zip, setZip] = React.useState([]);
+  const [record, setRecord] = React.useState(0);
   const [res, setRes] = React.useState("");
-  // const [cities, setCities] = React.useState([]);
-  // const [zips, setZips] = React.useState([]);
+  const [key, setKey] = React.useState(undefined);
   const [curlcode, setCurl] = React.useState("");
   const [url, setUrl] = React.useState("");
   const [payload, setPayload] = React.useState("");
+  const [isdisplay, setDisplay] = React.useState(false);
 
-  const items = useSelector((state) => state.items);
-
+  let { user } = useAuth();
   const handleChange = (event) => {
     setPhone(event.target.value);
   };
@@ -51,36 +53,34 @@ function Tables() {
   const MaxAgeChange = (event) => {
     setMaxAge(event.target.value);
   };
-  const CityChange = (event) => {
-    setCity(event.target.value);
-    // setZips([]);
+  const RecordChange = (event) => {
+    setRecord(event.target.value);
   };
-  const ZipChange = (event) => {
-    setZip(event.target.value);
+  const getKey = async () => {
+    try {
+      const res = await axios.post(`${API_SERVER}/users/dashboard`, user, {
+        headers: { Authorization: `${user.token}` },
+      });
+      const data = res.data;
+      setKey(data["API_KEY"]);
+    } catch (e) {
+      console.error(e);
+    }
   };
-  const getdata = async () => {
-    const url = "http://localhost/api";
-
+  const getdata = async (body) => {
+    const url = "http://20.237.23.9/api";
     const header = {
-      access_token: items,
+      access_token: key,
+      accept: "application/json",
+      "Content-Type": "application/json",
     };
-    const data = {
-      phone: "wireless",
-      state: ["TX"],
-      city: [{ city }],
-      zip: [{ zip }],
-      min_age: 50,
-      max_age: 60,
-      record: 1,
-    };
-    const result = await axios.post(url, { headers: header, data: data });
+    const result = await axios.post(url, body, { headers: header });
     return result.data;
   };
   const Searchclicked = async () => {
-    let curl = `curl -X 'POST' 'http://localhost/api' -H 'accept: application/json' -H 'access_token: ${items}' -H 'Content-Type: application/json'`;
+    let curl = `curl -X 'POST' 'http://20.237.23.9/api' -H 'accept: application/json' -H 'access_token: ${key}' -H 'Content-Type: application/json'`;
     setCurl(curl);
-    setUrl("http://localhost/api");
-    setRecord("1");
+    setUrl("http://20.237.23.9/api");
     let body = {
       phone: phone,
       state: state,
@@ -90,11 +90,21 @@ function Tables() {
       max_age: max_age,
       record: record,
     };
-    console.log({ phone });
     setPayload(JSON.stringify(body, null, 2));
-    const data = JSON.stringify(await getdata(), null, 2);
+    setDisplay(true);
+    const data = JSON.stringify(await getdata(body), null, 2);
+    console.log(data);
     setRes(data);
   };
+  const CityChange = (chips) => {
+    setCity(chips);
+  };
+  const ZipChange = (chips) => {
+    setZip(chips);
+  };
+  useEffect(() => {
+    getKey();
+  });
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -224,50 +234,28 @@ function Tables() {
               </Grid>
               <Grid item xs={2}>
                 <SuiBox p={1} display="flex" justifyContent="center" alignItems="center">
-                  <SuiTypography variant="h6" p={2}>
-                    City:
-                  </SuiTypography>
-                  {/* <FormControl>
-                    <Select
-                      labelId="city_label"
-                      id="city"
-                      value={city}
-                      onChange={CityChange}
-                      label="City"
-                      style={{ width: "100%" }}
-                    >
-                      {cities.map((c) => (
-                        <MenuItem value={c} key={c}>
-                          {c}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl> */}
-                  <SuiInput id="city" value={city} onChange={CityChange}></SuiInput>
+                  <TagsInput
+                    selectedTags={CityChange}
+                    fullWidth
+                    variant="outlined"
+                    id="cities"
+                    name="Cities"
+                    placeholder="Add cities"
+                    label="Cities"
+                  />
                 </SuiBox>
               </Grid>
               <Grid item xs={2}>
                 <SuiBox p={1} display="flex" justifyContent="center" alignItems="center">
-                  <SuiTypography variant="h6" p={2}>
-                    Zip:
-                  </SuiTypography>
-                  {/* <FormControl>
-                    <Select
-                      labelId="zip_label"
-                      id="zip"
-                      value={zip}
-                      onChange={ZipChange}
-                      label="Zip"
-                      style={{ width: "100%" }}
-                    >
-                      {zips.map((z) => (
-                        <MenuItem value={z} key={z}>
-                          {z}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl> */}
-                  <SuiInput id="zip" value={zip} onChange={ZipChange}></SuiInput>
+                  <TagsInput
+                    selectedTags={ZipChange}
+                    fullWidth
+                    variant="outlined"
+                    id="zips"
+                    name="Zip"
+                    placeholder="Add postal codes"
+                    label="Zip"
+                  />
                 </SuiBox>
               </Grid>
               <Grid item xs={2}>
@@ -278,6 +266,8 @@ function Tables() {
                   <TextField
                     id="outlined-number"
                     type="number"
+                    value={record}
+                    onChange={RecordChange}
                     InputLabelProps={{
                       shrink: true,
                     }}
@@ -287,12 +277,14 @@ function Tables() {
             </Grid>
           </Card>
         </SuiBox>
-        <SuiBox>
-          <Snippet title="cURL" code={curlcode}></Snippet>
-          <Snippet title="Request URL" code={url}></Snippet>
-          <Snippet title="Body" code={payload}></Snippet>
-          <Snippet title="Response" code={res}></Snippet>
-        </SuiBox>
+        {isdisplay == true ? (
+          <SuiBox>
+            <Snippet title="cURL" code={curlcode}></Snippet>
+            <Snippet title="Request URL" code={url}></Snippet>
+            <Snippet title="Body" code={payload}></Snippet>
+            <Snippet title="Response" code={res}></Snippet>
+          </SuiBox>
+        ) : null}
       </SuiBox>
 
       {/* <Footer /> */}

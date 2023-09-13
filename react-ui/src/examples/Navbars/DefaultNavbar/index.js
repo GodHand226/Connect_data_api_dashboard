@@ -87,6 +87,20 @@ function DefaultNavbar({ transparent, light }) {
         </SuiBox>
         <SuiBox color="inherit" display={{ xs: "none", lg: "flex" }} m={0} p={0}>
           <DefaultNavbarLink
+            icon="description"
+            name="Data Clarity"
+            route="/data-clarity"
+            light={light}
+          />
+          <DefaultNavbarLink icon="paid" name="Pricing" route="/pricing" light={light} />
+          <DefaultNavbarLink icon="show_chart" name="API" route="/api" light={light} />
+          <DefaultNavbarLink
+            icon="security"
+            name="Data Compliance"
+            route="/data-compliance"
+            light={light}
+          />
+          <DefaultNavbarLink
             icon="account_circle"
             name="sign up"
             route="/authentication/sign-up"

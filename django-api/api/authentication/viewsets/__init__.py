@@ -4,3 +4,5 @@ from .active_session import ActiveSessionViewSet
 from .logout import LogoutViewSet
 from .api_info import ApiViewSet
 from .mongoconnect import mycol
+from .payment import PaymentViewSet
+from .payment import WebHookViewSet

@@ -14,11 +14,7 @@ const Snippet = ({ title, code }) => {
           Copy
         </SuiButton>
       </SuiBox>
-      <SuiBox
-        sx={{
-          backgroundColor: "#3b4151",
-        }}
-      >
+      <SuiBox backgroundColor={"#3b4151"}>
         <SuiTypography
           variant="body2"
           component="pre"
@@ -32,7 +28,7 @@ const Snippet = ({ title, code }) => {
   );
 };
 
-SuiBox.defaultProps = {
+Snippet.defaultProps = {
   title: "",
   code: "[]",
   codecolor: "white",

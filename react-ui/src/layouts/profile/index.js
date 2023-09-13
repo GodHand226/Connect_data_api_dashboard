@@ -33,11 +33,13 @@ import ProfileInfoCard from "examples/Cards/InfoCards/ProfileInfoCard";
 
 // Overview page components
 import Header from "layouts/profile/components/Header";
+import { useAuth } from "../../auth-context/auth.context";
 // import PlatformSettings from "layouts/profile/components/PlatformSettings";
 
 // Data
 
 function Overview() {
+  let { user } = useAuth();
   return (
     <DashboardLayout>
       <Header />
@@ -49,26 +51,25 @@ function Overview() {
           <Grid item xs={12} md={6} xl={4}>
             <ProfileInfoCard
               title="profile information"
-              description="Hi, I’m Alec Thompson, Decisions: If you can’t decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality)."
+              // description="Hi, I’m Alec Thompson, Decisions: If you can’t decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality)."
               info={{
-                fullName: "Alec M. Thompson",
-                mobile: "(44) 123 1234 123",
-                email: "alecthompson@mail.com",
-                location: "USA",
+                fullName: user.username,
+                // mobile: "(44) 123 1234 123",
+                email: user.email,
               }}
               social={[
                 {
-                  link: "https://www.facebook.com/CreativeTim/",
+                  // link: "https://www.facebook.com/CreativeTim/",
                   icon: <FacebookIcon />,
                   color: "facebook",
                 },
                 {
-                  link: "https://twitter.com/creativetim",
+                  // link: "https://twitter.com/creativetim",
                   icon: <TwitterIcon />,
                   color: "twitter",
                 },
                 {
-                  link: "https://www.instagram.com/creativetimofficial/",
+                  // link: "https://www.instagram.com/creativetimofficial/",
                   icon: <InstagramIcon />,
                   color: "instagram",
                 },
