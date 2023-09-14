@@ -36,7 +36,7 @@ import DefaultNavbarMobile from "examples/Navbars/DefaultNavbar/DefaultNavbarMob
 
 // Soft UI Dashboard React base styles
 import breakpoints from "assets/theme/base/breakpoints";
-
+import BasicMenu from "./MenuItem";
 // Custom styles for DashboardNavbar
 import styles from "examples/Navbars/DefaultNavbar/styles/defaultNavbar";
 
@@ -86,13 +86,8 @@ function DefaultNavbar({ transparent, light }) {
           </SuiTypography>
         </SuiBox>
         <SuiBox color="inherit" display={{ xs: "none", lg: "flex" }} m={0} p={0}>
-          <DefaultNavbarLink
-            icon="description"
-            name="Data Clarity"
-            route="/data-clarity"
-            light={light}
-          />
-          <DefaultNavbarLink icon="paid" name="Pricing" route="/pricing" light={light} />
+          <BasicMenu></BasicMenu>
+          <DefaultNavbarLink icon="paid" name="Plan" route="/plan" light={light} />
           <DefaultNavbarLink icon="show_chart" name="API" route="/api" light={light} />
           <DefaultNavbarLink
             icon="security"

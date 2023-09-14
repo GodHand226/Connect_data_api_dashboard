@@ -5,7 +5,7 @@ import Footer from "layouts/authentication/components/Footer";
 import DescriptionBox from "examples/DescriptionBox";
 import StartFree from "examples/StartFree";
 
-function Home() {
+function Plan() {
   return (
     <PageLayout background="white">
       <DefaultNavbar
@@ -32,4 +32,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Plan;

@@ -56,6 +56,10 @@ import CreditCard from "examples/Icons/CreditCard";
 import Home from "layouts/home";
 // import VirtualReality from "layouts/virtual-reality";
 import Cube from "examples/Icons/Cube";
+import DataPoints from "layouts/Data/Points";
+import DataCloud from "layouts/Data/Cloud";
+import DataTransparency from "layouts/Data/Transparency";
+import Plan from "layouts/plan";
 
 const routes = [
   {
@@ -113,26 +117,40 @@ const routes = [
     name: "Home",
     key: "home",
     route: "/home",
-    icon: <Shop size="12px" />,
     component: Home,
     noCollapse: true,
   },
   {
     type: "none",
-    name: "Data Clarity",
-    key: "data_clarity",
-    route: "/data-clarity",
-    icon: <Shop size="12px" />,
-    component: Home,
+    name: "Data Cloud",
+    key: "data_cloud",
+    route: "/data/cloud",
+    component: DataCloud,
     noCollapse: true,
   },
   {
     type: "none",
-    name: "Pricing",
-    key: "pricing",
-    route: "/pricing",
+    name: "Datapoints",
+    key: "datapoints",
+    route: "/data/points",
+    component: DataPoints,
+    noCollapse: true,
+  },
+  {
+    type: "none",
+    name: "Data Transparency",
+    key: "data_transparency",
+    route: "/data/transparency",
+    component: DataTransparency,
+    noCollapse: true,
+  },
+  {
+    type: "none",
+    name: "Plan",
+    key: "plan",
+    route: "/plan",
     icon: <Shop size="12px" />,
-    component: Home,
+    component: Plan,
     noCollapse: true,
   },
   {
