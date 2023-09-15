@@ -8,7 +8,7 @@ import SuiBox from "components/SuiBox";
 import SuiTypography from "components/SuiTypography";
 import { Link } from "react-router-dom";
 
-function DataCloud() {
+function DataCompliance() {
   return (
     <PageLayout background="white">
       <DefaultNavbar
@@ -85,4 +85,4 @@ function DataCloud() {
   );
 }
 
-export default DataCloud;
+export default DataCompliance;

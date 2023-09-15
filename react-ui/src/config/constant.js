@@ -2,6 +2,6 @@ let BACKEND_SERVER = null;
 if (process.env.REACT_APP_BACKEND_SERVER) {
   BACKEND_SERVER = process.env.REACT_APP_BACKEND_SERVER;
 } else {
-  BACKEND_SERVER = "http://20.102.100.97:8000/api/";
+  BACKEND_SERVER = "https://demandexcellence.net/api";
 }
 export const API_SERVER = BACKEND_SERVER;

@@ -5,8 +5,9 @@ import { Link } from "react-router-dom";
 import SuiBox from "components/SuiBox";
 import Icon from "@mui/material/Icon";
 import SuiTypography from "components/SuiTypography";
+import PropTypes from "prop-types";
 
-export default function BasicMenu() {
+export default function BasicMenu({ light }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -26,11 +27,13 @@ export default function BasicMenu() {
       alignItems="center"
       className="cursor-pointer user-select-none"
     >
-      <Icon className={`vertical-middle text-secondary`}>description</Icon>
+      <Icon className={`vertical-middle ${light ? "text-white" : "text-secondary"}`}>
+        description
+      </Icon>
       <SuiTypography
         variant="button"
         fontWeight="regular"
-        textColor={"dark"}
+        textColor={light ? "white" : "dark"}
         textTransform="capitalize"
         customClass="w-100 line-height-0"
         onClick={handleClick}
@@ -62,3 +65,6 @@ export default function BasicMenu() {
     </SuiBox>
   );
 }
+BasicMenu.propTypes = {
+  light: PropTypes.bool.isRequired,
+};

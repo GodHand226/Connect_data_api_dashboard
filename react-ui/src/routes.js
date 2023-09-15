@@ -60,6 +60,9 @@ import DataPoints from "layouts/Data/Points";
 import DataCloud from "layouts/Data/Cloud";
 import DataTransparency from "layouts/Data/Transparency";
 import Plan from "layouts/plan";
+import Contact from "layouts/contactus";
+import Terms from "layouts/terms";
+import DataCompliance from "layouts/Data/Compliance";
 
 const routes = [
   {
@@ -168,7 +171,7 @@ const routes = [
     key: "data_compliance",
     route: "/data-compliance",
     icon: <Shop size="12px" />,
-    component: Home,
+    component: DataCompliance,
     noCollapse: true,
   },
   {
@@ -196,6 +199,24 @@ const routes = [
     route: "/authentication/sign-out",
     icon: <SpaceShip size="12px" />,
     component: SignOut,
+    noCollapse: true,
+  },
+  {
+    type: "none",
+    name: "ContactUs",
+    key: "contact_us",
+    route: "/contact",
+    icon: <SpaceShip size="12px" />,
+    component: Contact,
+    noCollapse: true,
+  },
+  {
+    type: "none",
+    name: "Terms",
+    key: "terms",
+    route: "/terms",
+    icon: <SpaceShip size="12px" />,
+    component: Terms,
     noCollapse: true,
   },
 ];

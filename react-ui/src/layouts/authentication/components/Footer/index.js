@@ -22,61 +22,73 @@ import SuiTypography from "components/SuiTypography";
 
 function Footer() {
   return (
-    <SuiBox component="footer" py={6}>
+    <SuiBox component="footer" py={3}>
       <Grid container justifyContent="center">
-        <Grid item xs={10} lg={8}>
-          <SuiBox display="flex" justifyContent="center" flexWrap="wrap" mb={3}>
-            <SuiBox mr={{ xs: 2, lg: 3, xl: 6 }}>
+        <Grid itme xs={12} sm={6}>
+          <SuiBox display="flex" justifyContent="center">
+            <SuiTypography variant="body2" textColor="secondary" fontSize="0.8rem">
+              Copyright © 2017-2023, Data API Connect.
+            </SuiTypography>
+          </SuiBox>
+        </Grid>
+        <Grid item xs={12} lg={6}>
+          <SuiBox display="flex" justifyContent="center" flexWrap="wrap">
+            <SuiBox mr={{ xs: 2, lg: 3, xl: 4 }}>
               <SuiTypography
                 component="a"
-                href="https://bit.ly/3fKQZaL"
-                target="_blank"
+                href="/terms"
+                target=""
                 variant="body2"
                 textColor="secondary"
+                fontSize="0.8rem"
               >
                 Terms
               </SuiTypography>
             </SuiBox>
-            <SuiBox mr={{ xs: 2, lg: 3, xl: 6 }}>
+            <SuiBox mr={{ xs: 2, lg: 3, xl: 4 }}>
               <SuiTypography
                 component="a"
-                href="https://appseed.us/product/django-react-soft-dashboard"
+                href="/privacy"
                 target="_blank"
                 variant="body2"
                 textColor="secondary"
+                fontSize="0.8rem"
               >
                 Privacy
               </SuiTypography>
             </SuiBox>
-            <SuiBox mr={{ xs: 0, lg: 3, xl: 6 }}>
+            <SuiBox mr={{ xs: 2, lg: 3, xl: 4 }}>
               <SuiTypography
                 component="a"
-                href="https://appseed.us/support"
-                target="_blank"
+                href="/api"
+                target=""
                 variant="body2"
                 textColor="secondary"
+                fontSize="0.8rem"
               >
                 API
               </SuiTypography>
             </SuiBox>
-            <SuiBox mr={{ xs: 0, lg: 3, xl: 6 }}>
+            <SuiBox mr={{ xs: 2, lg: 3, xl: 4 }}>
               <SuiTypography
                 component="a"
-                href="https://appseed.us/support"
-                target="_blank"
+                href="/case"
+                target=""
                 variant="body2"
                 textColor="secondary"
+                fontSize="0.8rem"
               >
-                Use cases & Law Enforcement
+                Use cases
               </SuiTypography>
             </SuiBox>
-            <SuiBox mr={{ xs: 0, lg: 3, xl: 6 }}>
+            <SuiBox mr={{ xs: 2, lg: 3, xl: 4 }}>
               <SuiTypography
                 component="a"
-                href="https://appseed.us/support"
-                target="_blank"
+                href="/contact"
+                target=""
                 variant="body2"
                 textColor="secondary"
+                fontSize="0.8rem"
               >
                 Contact Us
               </SuiTypography>

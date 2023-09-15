@@ -92,8 +92,8 @@ function DataTransparency() {
               <br />
               If you have any questions or need further assistance, please don&apos;t hesitate
               to&nbsp;
-              <Link>Contact Us</Link>. We are here to ensure your data needs are met with
-              excellence.
+              <Link to="/contact">Contact Us</Link>. We are here to ensure your data needs are met
+              with excellence.
             </SuiTypography>
           </SuiBox>
         </SuiBox>

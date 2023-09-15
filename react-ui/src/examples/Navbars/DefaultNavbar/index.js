@@ -86,7 +86,7 @@ function DefaultNavbar({ transparent, light }) {
           </SuiTypography>
         </SuiBox>
         <SuiBox color="inherit" display={{ xs: "none", lg: "flex" }} m={0} p={0}>
-          <BasicMenu></BasicMenu>
+          <BasicMenu light={light}></BasicMenu>
           <DefaultNavbarLink icon="paid" name="Plan" route="/plan" light={light} />
           <DefaultNavbarLink icon="show_chart" name="API" route="/api" light={light} />
           <DefaultNavbarLink

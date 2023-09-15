@@ -2,9 +2,10 @@ import PageLayout from "examples/LayoutContainers/PageLayout";
 import DefaultNavbar from "examples/Navbars/DefaultNavbar";
 import routes from "routes";
 import Footer from "layouts/authentication/components/Footer";
-import DescriptionBox from "examples/DescriptionBox";
 import StartFree from "examples/StartFree";
-
+import PlanCard from "./Plancard";
+import { Grid } from "@mui/material";
+import SuiBox from "components/SuiBox";
 function Plan() {
   return (
     <PageLayout background="white">
@@ -17,15 +18,42 @@ function Plan() {
           color: "dark",
         }}
       />
-      <DescriptionBox
-        title="Welcome to DataAPIConnect"
-        description="Where data meets innovation. Discover a world of consumer insights at your fingertips. We specialize in providing comprehensive consumer data that empowers businesses to make informed decisions and drive growth. With a focus on accuracy, reliability, and ethical data sourcing, DataAPIConnect is your trusted partner in harnessing the power of data for strategic advantage. Join us on a journey of transforming information into opportunity, and explore the limitless potential that data-driven strategies can bring to your organization."
-        top={15}
-      ></DescriptionBox>
-      <DescriptionBox
-        title="Millions of Records, One Cloud Engine, Your Success"
-        description="500M Consumer Insights, One Simple API Tap into the power of 500 million consumer insights effortlessly. Our easy-to-use API grants you direct access to a wealth of consumer data. No fuss, no complexity—just plug in and unlock valuable insights to fuel your decisions. Reach your goals with consumer understanding, powered by a straightforward API solution."
-      ></DescriptionBox>
+      <SuiBox mt={15} display="flex" justifyContent="center">
+        <Grid container width={"75%"} justifyContent="space-around" spacing={5}>
+          <Grid item xs={12} sm={3}>
+            <PlanCard
+              title="Pay As You Go"
+              description="No subscription No commitment"
+              pricing="$0.10 per Record"
+              plan="Start Now"
+            ></PlanCard>
+          </Grid>
+          <Grid item xs={12} sm={3}>
+            <PlanCard
+              title="Standard"
+              description="Minimum 100k Data Records"
+              pricing="$0.08 per Record"
+              plan="Upgrade"
+            ></PlanCard>
+          </Grid>
+          <Grid item xs={12} sm={3}>
+            <PlanCard
+              title="Professional"
+              description="Minimum 500k Data Records"
+              pricing="$0.06 per Record"
+              plan="Upgrade"
+            ></PlanCard>
+          </Grid>
+          <Grid item xs={12} sm={3}>
+            <PlanCard
+              title="Enterprise"
+              description="Minimum 1 Million Data Records"
+              pricing="$0.04 per Record"
+              plan="Upgrade"
+            ></PlanCard>
+          </Grid>
+        </Grid>
+      </SuiBox>
       <StartFree></StartFree>
       <Footer />
     </PageLayout>
