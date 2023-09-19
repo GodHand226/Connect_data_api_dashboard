@@ -82,30 +82,30 @@ WSGI_APPLICATION = "core.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE"  : env("DB_ENGINE"  , default="django.db.backends.sqlite3"),
-#         "NAME"    : env("DB_DATABASE", default=os.path.join(BASE_DIR, "db.sqlite3")),
-#         "USER"    : env("DB_USER"    , default=None),
-#         "PASSWORD": env("DB_PASSWORD", default=None),
-#         "HOST"    : env("DB_HOST"    , default=None),
-#         "PORT"    : env("DB_PORT"    , default=None),
-#     }
-# }
-
 DATABASES = {
     "default": {
-        "ENGINE"  : "django.db.backends.mysql",
-        "NAME"    : "dataleads",
-        "USER"    : "dataleads",
-        "PASSWORD": "123qwe!@#QWE",
-        "HOST"    : "127.0.0.1",
-        "PORT"    : "3306",
-        'OPTIONS': {  
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"  
-        }  
+        "ENGINE"  : env("DB_ENGINE"  , default="django.db.backends.sqlite3"),
+        "NAME"    : env("DB_DATABASE", default=os.path.join(BASE_DIR, "db.sqlite3")),
+        "USER"    : env("DB_USER"    , default=None),
+        "PASSWORD": env("DB_PASSWORD", default=None),
+        "HOST"    : env("DB_HOST"    , default=None),
+        "PORT"    : env("DB_PORT"    , default=None),
     }
 }
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE"  : "django.db.backends.mysql",
+#         "NAME"    : "dataleads",
+#         "USER"    : "dataleads",
+#         "PASSWORD": "123qwe!@#QWE",
+#         "HOST"    : "127.0.0.1",
+#         "PORT"    : "3306",
+#         'OPTIONS': {  
+#             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"  
+#         }  
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -169,7 +169,7 @@ REST_FRAMEWORK = {
 CORS_ALLOW_ALL_ORIGINS=True
 
 # Load the default ones
-CORS_ALLOWED_ORIGINS = ["http://localhost:3000", "http://127.0.0.1:3000"]
+CORS_ALLOWED_ORIGINS = ["http://localhost:3000", "http://127.0.0.1:3000", "https://dataapiconnect.com"]
 
 # Leaded from Environment
 CORS_ALLOWED_ORIGINS_ENV = env("CORS_ALLOWED_ORIGINS", default=None)
