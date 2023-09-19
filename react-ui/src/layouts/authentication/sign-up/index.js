@@ -86,6 +86,7 @@ function SignUp() {
     }
     try {
       setButtonText("Signing up");
+      setError(undefined);
       let response = await AuthApi.Register({
         username: firstName,
         email,
@@ -93,9 +94,12 @@ function SignUp() {
       });
       if (response.data && response.data.success === false) {
         setButtonText("Sign up");
+
         return setError(response.data.msg);
       }
-      return history.push("/authentication/sign-in");
+      const stateID = response.data.userID;
+      console.log(response.data);
+      return history.push(`/authentication/email_verify/${stateID}`);
     } catch (err) {
       console.log(err);
       setButtonText("Sign up");

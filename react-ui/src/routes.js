@@ -66,6 +66,7 @@ import Privacy from "layouts/privacy";
 import DataCompliance from "layouts/Data/Compliance";
 import APIDOC from "layouts/API";
 import UseCase from "layouts/usecase";
+import OTP from "layouts/authentication/otp";
 
 const routes = [
   {
@@ -124,6 +125,14 @@ const routes = [
     key: "home",
     route: "/home",
     component: Home,
+    noCollapse: true,
+  },
+  {
+    type: "none",
+    name: "OTP",
+    key: "otp",
+    route: "/authentication/email_verify/:id",
+    component: OTP,
     noCollapse: true,
   },
   {

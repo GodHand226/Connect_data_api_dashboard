@@ -1,6 +1,8 @@
 import pymongo
-from datetime import datetime
+import requests
 import hashlib
+import json
+from datetime import datetime
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
@@ -31,6 +33,22 @@ def insert_api_info(email):
     except Exception as e:
         print(e)
 
+def SendOTP(mail):
+    print(mail)
+    payload = {
+        "email": mail,
+    }
+    headers = {
+        'X-API-Key': '1b7d6f1b-ea24-4408-ac36-90b40d5a71fd',
+        'Content-Type': 'application/json'
+    }
+    res = requests.post("https://api.mojoauth.com/users/emailotp?language=en", data = json.dumps(payload), headers = headers)
+    if res.status_code != 200:
+        return ""
+    else:
+        result = json.loads(res.text)
+        return result["state_id"]
+
 class RegisterViewSet(viewsets.ModelViewSet):
     http_method_names = ["post"]
     permission_classes = (AllowAny,)
@@ -38,16 +56,24 @@ class RegisterViewSet(viewsets.ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
-
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
-        insert_api_info(user.email)        
-
-        return Response(
+        insert_api_info(user.email)
+        res = SendOTP(user.email)    
+        if res != "":
+            return Response(
             {
                 "success": True,
-                "userID": user.id,
+                "userID": res,
                 "msg": "The user was successfully registered",
             },
-            status=status.HTTP_201_CREATED,
-        )
+            status=status.HTTP_200_OK,
+            )
+        return Response(
+            {
+                "success": False,
+                "userID": "",
+                "msg": "Error! Something went wrong",
+            },
+            status=status.HTTP_400_BAD_REQUEST,
+            )

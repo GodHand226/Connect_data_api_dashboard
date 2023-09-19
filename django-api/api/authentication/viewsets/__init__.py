@@ -6,3 +6,5 @@ from .api_info import ApiViewSet
 from .mongoconnect import mycol
 from .payment import PaymentViewSet
 from .payment import WebHookViewSet
+from .verify import VerifyViewSet
+from .resend import ResendViewSet

@@ -12,6 +12,14 @@ class AuthApi {
   static Logout = (data) => {
     return axios.post(`${base}/logout`, data, { headers: { Authorization: `${data.token}` } });
   };
+
+  static Verify = (data) => {
+    return axios.post(`${base}/verify`, data);
+  };
+
+  static Resend = (data) => {
+    return axios.post(`${base}/resend`, data);
+  };
 }
 
 let base = "users";

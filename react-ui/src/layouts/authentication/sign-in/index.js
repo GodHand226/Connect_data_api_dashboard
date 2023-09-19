@@ -83,6 +83,14 @@ function SignIn() {
     }
   };
 
+  const SendVerification = async () => {
+    let response = await AuthApi.Resend({
+      email,
+    });
+    const stateID = response.data.userID;
+    console.log(stateID);
+    return history.push(`/authentication/email_verify/${stateID}`);
+  };
   const setProfile = async (response) => {
     let user = { ...response.data.user };
     user.token = response.data.token;
@@ -163,6 +171,13 @@ function SignIn() {
               }}
             >
               {error}
+            </h6>
+            <h6>
+              {error == "You have to verify Email" && (
+                <a href="#" onClick={SendVerification}>
+                  Click here
+                </a>
+              )}
             </h6>
           </SuiBox>
 

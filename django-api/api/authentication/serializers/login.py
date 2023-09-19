@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate
 from datetime import datetime, timedelta
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
-
+from api.user.models import User
 from api.authentication.models import ActiveSession
 
 
@@ -25,6 +25,8 @@ class LoginSerializer(serializers.Serializer):
     def validate(self, data):
         email = data.get("email", None)
         password = data.get("password", None)
+        x = User.objects.get(email = email)
+        
 
         if email is None:
             raise exceptions.ValidationError(
@@ -42,6 +44,11 @@ class LoginSerializer(serializers.Serializer):
         if not user.is_active:
             raise exceptions.ValidationError(
                 {"success": False, "msg": "User is not active"}
+            )
+        
+        if x.is_verified == False:
+            raise exceptions.ValidationError(
+                {"success": False, "msg": "You have to verify Email"}
             )
 
         try:

@@ -17,6 +17,7 @@ class UserManager(BaseUserManager):
         user = self.model(username=username, email=self.normalize_email(email))
         user.set_password(password)
         user.plan = "free"
+        user.is_verified=False
         user.save(using=self._db)
 
         return user
@@ -46,6 +47,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
+    is_verified = models.BooleanField(default=False)
     date = models.DateTimeField(auto_now_add=True)
     plan = models.CharField(max_length=30, default="free")
     USERNAME_FIELD = "email"
