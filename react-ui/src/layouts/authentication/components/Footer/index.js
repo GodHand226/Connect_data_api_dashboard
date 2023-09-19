@@ -24,8 +24,8 @@ function Footer() {
   return (
     <SuiBox component="footer" py={3}>
       <Grid container justifyContent="center">
-        <Grid itme xs={12} sm={6}>
-          <SuiBox display="flex" justifyContent="center">
+        <Grid itme xs={12} sm={6} display="flex" justifyContent="center" alignItems="center">
+          <SuiBox>
             <SuiTypography variant="body2" textColor="secondary" fontSize="0.8rem">
               Copyright © 2017-2023, Data API Connect.
             </SuiTypography>
@@ -49,7 +49,7 @@ function Footer() {
               <SuiTypography
                 component="a"
                 href="/privacy"
-                target="_blank"
+                target=""
                 variant="body2"
                 textColor="secondary"
                 fontSize="0.8rem"

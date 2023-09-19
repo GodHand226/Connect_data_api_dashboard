@@ -45,6 +45,7 @@ function SignUp() {
   const [firstName, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirm_password, setConfirm] = useState("");
   const [buttonText, setButtonText] = useState("Sign up");
   const [error, setError] = useState(undefined);
 
@@ -56,12 +57,32 @@ function SignUp() {
     }
     if (firstName === "") {
       return setError("You must enter your first name.");
+    } else if (/^[A-Za-z]{3,16}$/.test(firstName) == false) {
+      return setError(
+        "Name should be 3-16 characters and shouldn't include any special characters!"
+      );
     }
+    var email_pattern = new RegExp(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
     if (email === "") {
       return setError("You must enter your email.");
+    } else if (email_pattern.test(email) == false) {
+      return setError("Invalid Email Address");
     }
+
+    var pattern = new RegExp(
+      /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d][A-Za-z\d!@#$%^&*()_+]{8,20}$/
+    );
     if (password === "") {
       return setError("You must enter a password.");
+    } else if (pattern.test(password) == false) {
+      return setError(
+        "Password should be 8-20 characters and includes at least 1 letter, 1 number and 1 special character!"
+      );
+    }
+    if (confirm_password != password) {
+      return setError("Password does not match");
     }
     try {
       setButtonText("Signing up");
@@ -110,6 +131,7 @@ function SignUp() {
                   setError(undefined);
                 }}
                 placeholder="Name"
+                name="name"
               />
             </SuiBox>
             <SuiBox mb={2}>
@@ -118,6 +140,7 @@ function SignUp() {
                   setEmail(event.target.value);
                   setError(undefined);
                 }}
+                name="email"
                 type="email"
                 placeholder="Email"
               />
@@ -128,8 +151,20 @@ function SignUp() {
                   setPassword(event.target.value);
                   setError(undefined);
                 }}
+                name="password"
                 type="password"
                 placeholder="Password"
+              />
+            </SuiBox>
+            <SuiBox mb={2}>
+              <SuiInput
+                onChange={(event) => {
+                  setConfirm(event.target.value);
+                  setError(undefined);
+                }}
+                name="confirm_password"
+                type="password"
+                placeholder="Confirm Password"
               />
             </SuiBox>
             <SuiBox display="flex" alignItems="center">

@@ -62,7 +62,10 @@ import DataTransparency from "layouts/Data/Transparency";
 import Plan from "layouts/plan";
 import Contact from "layouts/contactus";
 import Terms from "layouts/terms";
+import Privacy from "layouts/privacy";
 import DataCompliance from "layouts/Data/Compliance";
+import APIDOC from "layouts/API";
+import UseCase from "layouts/usecase";
 
 const routes = [
   {
@@ -101,7 +104,7 @@ const routes = [
     key: "api",
     route: "/api",
     icon: <Cube size="12px" />,
-    component: Home,
+    component: APIDOC,
     noCollapse: true,
   },
   { type: "title", title: "Account Pages", key: "account-pages" },
@@ -158,15 +161,6 @@ const routes = [
   },
   {
     type: "none",
-    name: "API",
-    key: "api",
-    route: "/api",
-    icon: <Shop size="12px" />,
-    component: Home,
-    noCollapse: true,
-  },
-  {
-    type: "none",
     name: "Data Compliance",
     key: "data_compliance",
     route: "/data-compliance",
@@ -217,6 +211,24 @@ const routes = [
     route: "/terms",
     icon: <SpaceShip size="12px" />,
     component: Terms,
+    noCollapse: true,
+  },
+  {
+    type: "none",
+    name: "Privacy",
+    key: "privacy",
+    route: "/privacy",
+    icon: <SpaceShip size="12px" />,
+    component: Privacy,
+    noCollapse: true,
+  },
+  {
+    type: "none",
+    name: "Use Case",
+    key: "usecase",
+    route: "/case",
+    icon: <SpaceShip size="12px" />,
+    component: UseCase,
     noCollapse: true,
   },
 ];

@@ -1,97 +1,82 @@
 // import SuiBox from "components/SuiBox";
-import SuiButton from "components/SuiButton";
+// import SuiButton from "components/SuiButton";
 // Soft UI Dashboard React components
 // import Link from "@mui/material/Link";
-import axios from "axios";
-import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+// import axios from "axios";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import SuiBox from "components/SuiBox";
-import SuiTypography from "components/SuiTypography";
 import "react-coinbase-commerce/dist/coinbase-commerce-button.css";
-
-import { ToggleButton, ToggleButtonGroup } from "@mui/material";
-import { useState } from "react";
-import { API_SERVER } from "../../config/constant";
-import { useAuth } from "../../auth-context/auth.context";
+import PlanCard from "./Plancard";
+// import { useState } from "react";
+// import { API_SERVER } from "../../config/constant";
+// import { useAuth } from "../../auth-context/auth.context";
+import { Grid } from "@mui/material";
 function Billing() {
-  let array = [10, 50, 100, 500];
-  let { user } = useAuth();
+  // let { user } = useAuth();
 
-  // let check = {
-  //   10: "https://commerce.coinbase.com/checkout/4a8a7c28-25f0-479b-a57d-93176366fb0a",
-  //   50: "https://commerce.coinbase.com/checkout/0c4410c7-aab7-4fb3-b60a-63db719778e7",
-  //   100: "https://commerce.coinbase.com/checkout/ccb68179-2263-4132-a9a5-c78e00cbc46b",
-  //   500: "https://commerce.coinbase.com/checkout/c521ad37-a90c-4d76-819e-4ace54f01b62",
+  // const getCharge = async () => {
+  //   let res = "";
+  //   try {
+  //     res = await axios.post(
+  //       `${API_SERVER}/users/payment`,
+  //       { alignment },
+  //       {
+  //         headers: { Authorization: `${user.token}` },
+  //       }
+  //     );
+  //     console.log(res);
+  //   } catch (e) {
+  //     console.error(e);
+  //   }
+  //   return res;
   // };
-  const [alignment, setAlignment] = useState("10");
-  const handleAlignment = (event, newAlignment) => {
-    setAlignment(newAlignment);
-  };
-  const getCharge = async () => {
-    let res = "";
-    try {
-      res = await axios.post(
-        `${API_SERVER}/users/payment`,
-        { alignment },
-        {
-          headers: { Authorization: `${user.token}` },
-        }
-      );
-      console.log(res);
-    } catch (e) {
-      console.error(e);
-    }
-    return res;
-  };
-  const openInNewTab = (url) => {
-    const newWindow = window.open(url, "_blank", "noopener,noreferrer");
-    if (newWindow) newWindow.opener = null;
-  };
-  const checkClicked = async () => {
-    const result = await getCharge();
-    const data = result.data;
-    console.log(data);
-    const charge = data["charge"];
-    openInNewTab(charge.hosted_url);
-  };
+  // const openInNewTab = (url) => {
+  //   const newWindow = window.open(url, "_blank", "noopener,noreferrer");
+  //   if (newWindow) newWindow.opener = null;
+  // };
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <SuiBox display="flex" justifyContent="center">
-        <ToggleButtonGroup
-          value={alignment}
-          exclusive
-          onChange={handleAlignment}
-          aria-label="text alignment"
-        >
-          {array.map((price) => (
-            <ToggleButton value={price} key={price} sx={{ marginX: "30px" }}>
-              <SuiBox>
-                <SuiBox px={6} py={10} sx={{ borderBottom: "1px solid" }}>
-                  <SuiTypography variant="h3">Records</SuiTypography>
-                  <SuiTypography variant="h3">{price * 20}</SuiTypography>
-                </SuiBox>
-                <SuiBox>
-                  <SuiTypography variant="h3" py={5}>
-                    {price}$
-                  </SuiTypography>
-                </SuiBox>
-              </SuiBox>
-            </ToggleButton>
-          ))}
-        </ToggleButtonGroup>
-      </SuiBox>
-      <SuiBox display="flex" justifyContent="center" mt={10}>
-        <SuiButton
-          buttonColor="info"
-          startIcon={<AddShoppingCartIcon />}
-          variant="outlined"
-          size="large"
-          onClick={checkClicked}
-        >
-          CheckOut
-        </SuiButton>
+      <SuiBox mt={10} display="flex" justifyContent="center">
+        <Grid container width={"90%"} justifyContent="space-around" spacing={5}>
+          <Grid item xs={12} sm={3}>
+            <PlanCard
+              title="Pay As You Go"
+              description="No subscription No commitment"
+              pricing="$0.10 per Record"
+              plan="Add fund"
+              checkout="https://commerce.coinbase.com/checkout/229175bd-f479-4c98-92ec-529e321ba565"
+            ></PlanCard>
+          </Grid>
+          <Grid item xs={12} sm={3}>
+            <PlanCard
+              title="Standard"
+              description="Minimum 100k Data Records"
+              pricing="$0.08 per Record"
+              plan="Upgrade"
+              checkout="https://commerce.coinbase.com/checkout/ddef4028-7f8f-48d2-abb2-8b4733d3d019"
+            ></PlanCard>
+          </Grid>
+          <Grid item xs={12} sm={3}>
+            <PlanCard
+              title="Professional"
+              description="Minimum 500k Data Records"
+              pricing="$0.06 per Record"
+              plan="Upgrade"
+              checkout="https://commerce.coinbase.com/checkout/37b74e8f-e81f-468c-9415-5eee35e805a9"
+            ></PlanCard>
+          </Grid>
+          <Grid item xs={12} sm={3}>
+            <PlanCard
+              title="Enterprise"
+              description="Minimum 1 Million Data Records"
+              pricing="$0.04 per Record"
+              plan="Upgrade"
+              checkout="https://commerce.coinbase.com/checkout/9c8e82de-a792-4558-9917-6c19ec5d8fdc"
+            ></PlanCard>
+          </Grid>
+        </Grid>
       </SuiBox>
     </DashboardLayout>
   );

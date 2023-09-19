@@ -55,8 +55,21 @@ function Dashboard() {
       console.error(e);
     }
   };
+  const confirmPayment = async () => {
+    var data;
+    try {
+      const res = await axios.post(`${API_SERVER}/users/webhook`, user, {
+        headers: { Authorization: `${user.token}` },
+      });
+      data = res.data;
+    } catch (e) {
+      console.error(e);
+    }
+    return data;
+  };
   useEffect(() => {
     getData();
+    confirmPayment();
   });
 
   return (
@@ -118,7 +131,7 @@ function Dashboard() {
                         label="Price per record"
                         size="14"
                       ></LabelItem>
-                      <SuiTypography variant="h6">0.05$</SuiTypography>
+                      <SuiTypography variant="h6">0.10$</SuiTypography>
                     </SuiBox>
                     <SuiBox display="flex" justify-content="space-between" alignItems="center">
                       <LabelItem
