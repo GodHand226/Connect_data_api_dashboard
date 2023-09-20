@@ -17,7 +17,6 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Grid from "@mui/material/Grid";
 import SearchIcon from "@mui/icons-material/Search";
-import SuiInput from "components/SuiInput";
 import SuiButton from "components/SuiButton";
 import Snippet from "./components/index";
 import uszip from "./data/USCityData";
@@ -28,7 +27,7 @@ function Tables() {
   const [phone, setPhone] = React.useState("");
   const [state, setState] = React.useState([]);
   const [min_age, setMinAge] = React.useState(0);
-  const [max_age, setMaxAge] = React.useState(500);
+  const [max_age, setMaxAge] = React.useState(0);
   const [city, setCity] = React.useState([]);
   const [cities, setCities] = React.useState([]);
   const [zips, setZips] = React.useState([]);
@@ -41,7 +40,9 @@ function Tables() {
   const [payload, setPayload] = React.useState("");
   const [isdisplay, setDisplay] = React.useState(false);
   const [max, setMax] = React.useState(10);
-
+  const [min_error, setMinError] = React.useState("");
+  const [max_error, setMaxError] = React.useState("");
+  const [state_error, setStateError] = React.useState("");
   let { user } = useAuth();
   const getCities = () => {
     var res = uszip.database
@@ -64,11 +65,17 @@ function Tables() {
     let unique = getCities();
     setCities(unique.sort());
   };
-  const MinAgeChange = (event) => {
-    setMinAge(event.target.value);
+  const MinAgeChange = (e) => {
+    const regex = /^[0-9\b]+$/;
+    if (e.target.value === "" || regex.test(e.target.value)) {
+      setMinAge(e.target.value);
+    }
   };
-  const MaxAgeChange = (event) => {
-    setMaxAge(event.target.value);
+  const MaxAgeChange = (e) => {
+    const regex = /^[0-9\b]+$/;
+    if (e.target.value === "" || regex.test(e.target.value)) {
+      setMaxAge(e.target.value);
+    }
   };
   const RecordChange = (event) => {
     var value = parseInt(event.target.value, 10);
@@ -100,7 +107,24 @@ function Tables() {
     const result = await axios.post(url, body, { headers: header });
     return result.data;
   };
+  const validate = async () => {
+    var flag = true;
+    if (min_age === "") {
+      setMinError("Min Age is required");
+      flag = false;
+    } else setMinError("");
+    if (max_age === "") {
+      flag = false;
+      setMaxError("Max Age is required");
+    } else setMaxError("");
+    if (state.length == 0) {
+      flag = false;
+      setStateError("State is required");
+    } else setStateError("");
+    return flag;
+  };
   const Searchclicked = async () => {
+    if ((await validate()) == false) return;
     let curl = `curl -X 'POST' 'http://20.237.23.9/api' -H 'accept: application/json' -H 'access_token: ${key}' -H 'Content-Type: application/json'`;
     console.log(state);
     setCurl(curl);
@@ -136,7 +160,7 @@ function Tables() {
   };
   useEffect(() => {
     getKey();
-  });
+  }, []);
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -148,11 +172,11 @@ function Tables() {
             </SuiBox>
             <Grid container p={2}>
               <Grid item xs={3}>
-                <SuiBox p={1} display="flex" justifyContent="center" alignItems="center">
+                <SuiBox display="flex" justifyContent="center" alignItems="center">
                   <SuiTypography variant="h6" component="h6" p={2}>
-                    Phone Type:
+                    Phone&nbsp;Type:
                   </SuiTypography>
-                  <FormControl>
+                  <FormControl fullWidth>
                     <Select
                       labelId="phone_type_label"
                       id="phone_type"
@@ -171,19 +195,29 @@ function Tables() {
                 </SuiBox>
               </Grid>
               <Grid item xs={3}>
-                <SuiBox p={1} display="flex" justifyContent="center" alignItems="center">
+                <SuiBox display="flex" justifyContent="center" alignItems="center">
                   <SuiTypography variant="h6" p={2}>
                     Min_Age:
                   </SuiTypography>
-                  <SuiInput id="min_age" value={min_age} onChange={MinAgeChange}></SuiInput>
+                  <TextField id="min_age" value={min_age} onChange={MinAgeChange}></TextField>
+                </SuiBox>
+                <SuiBox display="flex" justifyContent="center">
+                  <SuiTypography variant="p" fontSize="12px" textColor="error">
+                    {min_error}
+                  </SuiTypography>
                 </SuiBox>
               </Grid>
               <Grid item xs={3}>
-                <SuiBox p={1} display="flex" justifyContent="center" alignItems="center">
+                <SuiBox display="flex" justifyContent="center" alignItems="center">
                   <SuiTypography variant="h6" p={2}>
                     Max_Age:
                   </SuiTypography>
-                  <SuiInput id="max_age" value={max_age} onChange={MaxAgeChange}></SuiInput>
+                  <TextField id="max_age" value={max_age} onChange={MaxAgeChange}></TextField>
+                </SuiBox>
+                <SuiBox display="flex" justifyContent="center">
+                  <SuiTypography variant="p" fontSize="12px" textColor="error">
+                    {max_error}
+                  </SuiTypography>
                 </SuiBox>
               </Grid>
               <Grid item xs={3} display="flex" justifyContent="center" alignItems="center">
@@ -194,7 +228,7 @@ function Tables() {
             </Grid>
             <Grid container p={2} display="flex" justifyContent="space-around" alignItems="center">
               <Grid item xs={3}>
-                <SuiBox p={1} display="flex" justifyContent="center" alignItems="center">
+                <SuiBox display="flex" justifyContent="center" alignItems="center">
                   <SuiTypography variant="h6" p={2}>
                     State:
                   </SuiTypography>
@@ -216,7 +250,7 @@ function Tables() {
                 </SuiBox>
               </Grid>
               <Grid item xs={3}>
-                <SuiBox p={1} display="flex" justifyContent="center" alignItems="center">
+                <SuiBox display="flex" justifyContent="center" alignItems="center">
                   <SuiTypography variant="h6" component="h6" p={2}>
                     City:
                   </SuiTypography>
@@ -239,7 +273,7 @@ function Tables() {
                 </SuiBox>
               </Grid>
               <Grid item xs={3}>
-                <SuiBox p={1} display="flex" justifyContent="center" alignItems="center">
+                <SuiBox display="flex" justifyContent="center" alignItems="center">
                   <SuiTypography variant="h6" component="h6" p={2}>
                     Zip:
                   </SuiTypography>
@@ -253,9 +287,6 @@ function Tables() {
                       label="Zip"
                       style={{ width: "100%" }}
                     >
-                      <MenuItem value="">
-                        <em>None</em>
-                      </MenuItem>
                       {zips.map((e) => (
                         <MenuItem value={e} key={e}>
                           {e}
@@ -266,7 +297,7 @@ function Tables() {
                 </SuiBox>
               </Grid>
               <Grid item xs={3}>
-                <SuiBox p={1} display="flex" justifyContent="center" alignItems="center">
+                <SuiBox display="flex" justifyContent="center" alignItems="center">
                   <SuiTypography variant="h6" p={2}>
                     Record:
                   </SuiTypography>
@@ -280,6 +311,15 @@ function Tables() {
                       shrink: true,
                     }}
                   />
+                </SuiBox>
+              </Grid>
+            </Grid>
+            <Grid container pb={2}>
+              <Grid item xs={3}>
+                <SuiBox display="flex" justifyContent="center">
+                  <SuiTypography variant="p" fontSize="12px" textColor="error">
+                    {state_error}
+                  </SuiTypography>
                 </SuiBox>
               </Grid>
             </Grid>

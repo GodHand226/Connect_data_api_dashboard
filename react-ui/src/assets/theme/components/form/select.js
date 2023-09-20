@@ -24,6 +24,7 @@ const { transparent } = colors;
 export default {
   styleOverrides: {
     select: {
+      width: "100%",
       display: "grid",
       alignItems: "center",
       padding: `0 ${pxToRem(12)} !important`,
@@ -38,10 +39,6 @@ export default {
       height: "none",
       minHeight: "none",
       overflow: "unset",
-    },
-
-    icon: {
-      display: "none",
     },
   },
 };

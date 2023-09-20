@@ -25,8 +25,6 @@ class LoginSerializer(serializers.Serializer):
     def validate(self, data):
         email = data.get("email", None)
         password = data.get("password", None)
-        x = User.objects.get(email = email)
-        
 
         if email is None:
             raise exceptions.ValidationError(
@@ -37,7 +35,6 @@ class LoginSerializer(serializers.Serializer):
                 {"success": False, "msg": "Password is required to log in."}
             )
         user = authenticate(username=email, password=password)
-
         if user is None:
             raise exceptions.AuthenticationFailed({"success": False, "msg": "Wrong credentials"})
 
@@ -46,23 +43,25 @@ class LoginSerializer(serializers.Serializer):
                 {"success": False, "msg": "User is not active"}
             )
         
-        if x.is_verified == False:
+        if not user.is_verified:
             raise exceptions.ValidationError(
                 {"success": False, "msg": "You have to verify Email"}
             )
 
         try:
+            print("1")
             session = ActiveSession.objects.get(user=user)
+            print("2")
             if not session.token:
                 raise ValueError
-
+            print("3")
             jwt.decode(session.token, settings.SECRET_KEY, algorithms=["HS256"])
 
         except (ObjectDoesNotExist, ValueError, jwt.ExpiredSignatureError):
             session = ActiveSession.objects.create(
                 user=user, token=_generate_jwt_token(user)
             )
-
+        print("4")
         return {
             "success": True,
             "token": session.token,

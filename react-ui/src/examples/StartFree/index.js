@@ -8,25 +8,22 @@ import { Link } from "react-router-dom";
 
 function StartFree() {
   return (
-    <SuiBox
-      compoent={Link}
-      to="/authentication/sign-up/"
-      mt={10}
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-    >
-      <Card sx={{ borderRadius: "24px", backgroundColor: "#007bff", width: "40%", p: 5 }}>
-        <SuiTypography variant="h1" textAlign="center" pb={3} textColor="white">
-          Start Free
-        </SuiTypography>
-        <SuiTypography variant="h4" textAlign="center" textColor="white">
-          No Limits, Your Journey, Your Choice.
-        </SuiTypography>
-        <SuiTypography variant="h4" textAlign="center" textColor="white">
-          Free to Start Pay as you go.
-        </SuiTypography>
-      </Card>
+    <SuiBox mt={10} display="flex" justifyContent="center" alignItems="center">
+      <SuiBox sx={{ width: "40%" }}>
+        <Link to={"/authentication/sign-up/"}>
+          <Card sx={{ borderRadius: "24px", backgroundColor: "#007bff", p: 5 }}>
+            <SuiTypography variant="h1" textAlign="center" pb={3} textColor="white">
+              Start Free
+            </SuiTypography>
+            <SuiTypography variant="h4" textAlign="center" textColor="white">
+              No Limits, Your Journey, Your Choice.
+            </SuiTypography>
+            <SuiTypography variant="h4" textAlign="center" textColor="white">
+              Free to Start Pay as you go.
+            </SuiTypography>
+          </Card>
+        </Link>
+      </SuiBox>
     </SuiBox>
   );
 }
