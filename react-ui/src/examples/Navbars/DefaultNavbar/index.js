@@ -39,7 +39,7 @@ import breakpoints from "assets/theme/base/breakpoints";
 import BasicMenu from "./MenuItem";
 // Custom styles for DashboardNavbar
 import styles from "examples/Navbars/DefaultNavbar/styles/defaultNavbar";
-
+import { useAuth } from "../../../auth-context/auth.context";
 function DefaultNavbar({ transparent, light }) {
   const classes = styles({ transparent, light });
   const [mobileNavbar, setMobileNavbar] = useState(false);
@@ -47,6 +47,7 @@ function DefaultNavbar({ transparent, light }) {
 
   const openMobileNavbar = ({ currentTarget }) => setMobileNavbar(currentTarget.parentNode);
   const closeMobileNavbar = () => setMobileNavbar(false);
+  let { user } = useAuth();
 
   useEffect(() => {
     // A function that sets the display state for the DefaultNavbarMobile.
@@ -85,29 +86,44 @@ function DefaultNavbar({ transparent, light }) {
             Data API Connect
           </SuiTypography>
         </SuiBox>
-        <SuiBox color="inherit" display={{ xs: "none", lg: "flex" }} m={0} p={0}>
-          <BasicMenu light={light}></BasicMenu>
-          <DefaultNavbarLink icon="paid" name="Plan" route="/plan" light={light} />
-          <DefaultNavbarLink icon="show_chart" name="API" route="/api" light={light} />
-          <DefaultNavbarLink
-            icon="security"
-            name="Data Compliance"
-            route="/data-compliance"
-            light={light}
-          />
-          <DefaultNavbarLink
-            icon="account_circle"
-            name="sign up"
-            route="/authentication/sign-up"
-            light={light}
-          />
-          <DefaultNavbarLink
-            icon="key"
-            name="sign in"
-            route="/authentication/sign-in"
-            light={light}
-          />
-        </SuiBox>
+        {user && (
+          <SuiBox color="inherit" display={{ xs: "none", lg: "flex" }} m={0} p={0}>
+            <DefaultNavbarLink icon="dashboard" name="Dashboard" route="/dashboard" light={light} />
+            <DefaultNavbarLink
+              icon="analytics"
+              name="DataViewer"
+              route="/dataviewer"
+              light={light}
+            />
+            <DefaultNavbarLink icon="paid" name="Billing" route="/billing" light={light} />
+            <DefaultNavbarLink icon="show_chart" name="API" route="/api" light={light} />
+          </SuiBox>
+        )}
+        {(!user || !user.token || user.token === "") && (
+          <SuiBox color="inherit" display={{ xs: "none", lg: "flex" }} m={0} p={0}>
+            <BasicMenu light={light}></BasicMenu>
+            <DefaultNavbarLink icon="paid" name="Plan" route="/plan" light={light} />
+            <DefaultNavbarLink icon="show_chart" name="API" route="/api" light={light} />
+            <DefaultNavbarLink
+              icon="security"
+              name="Data Compliance"
+              route="/data-compliance"
+              light={light}
+            />
+            <DefaultNavbarLink
+              icon="account_circle"
+              name="sign up"
+              route="/authentication/sign-up"
+              light={light}
+            />
+            <DefaultNavbarLink
+              icon="key"
+              name="sign in"
+              route="/authentication/sign-in"
+              light={light}
+            />
+          </SuiBox>
+        )}
 
         <SuiBox
           display={{ xs: "inline-block", lg: "none" }}

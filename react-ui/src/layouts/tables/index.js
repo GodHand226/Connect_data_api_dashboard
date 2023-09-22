@@ -43,10 +43,11 @@ function Tables() {
   const [min_error, setMinError] = React.useState("");
   const [max_error, setMaxError] = React.useState("");
   const [state_error, setStateError] = React.useState("");
+  const [phone_error, setPhoneError] = React.useState("");
   let { user } = useAuth();
-  const getCities = () => {
+  const getCities = (sta) => {
     var res = uszip.database
-      .filter((element) => state.includes(element.status_code))
+      .filter((element) => sta.includes(element.status_code))
       .map((e) => e.city);
     let unique = [];
     res.forEach((c) => {
@@ -59,10 +60,10 @@ function Tables() {
   const handleChange = (event) => {
     setPhone(event.target.value);
   };
-  const stateChange = async (event) => {
-    await setState(event.target.value);
+  const stateChange = (event) => {
+    setState(event.target.value);
     console.log(state);
-    let unique = getCities();
+    let unique = getCities(event.target.value);
     setCities(unique.sort());
   };
   const MinAgeChange = (e) => {
@@ -121,6 +122,10 @@ function Tables() {
       flag = false;
       setStateError("State is required");
     } else setStateError("");
+    if (phone == "") {
+      flag = false;
+      setPhoneError("Phone Type is required");
+    } else setPhoneError("");
     return flag;
   };
   const Searchclicked = async () => {
@@ -192,6 +197,11 @@ function Tables() {
                       <MenuItem value={"Landline"}>Landline</MenuItem>
                     </Select>
                   </FormControl>
+                </SuiBox>
+                <SuiBox display="flex" justifyContent="center">
+                  <SuiTypography variant="p" fontSize="12px" textColor="error">
+                    {phone_error}
+                  </SuiTypography>
                 </SuiBox>
               </Grid>
               <Grid item xs={3}>
