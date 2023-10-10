@@ -5,9 +5,10 @@ from api.authentication.viewsets import (
     LogoutViewSet,
     ApiViewSet,
     PaymentViewSet,
-    WebHookViewSet,
     VerifyViewSet,
-    ResendViewSet
+    ResendViewSet,
+    ResetPasswordViewSet,
+    RotateViewSet
 )
 from rest_framework import routers
 from api.user.viewsets import UserViewSet
@@ -28,11 +29,13 @@ router.register(r"dashboard", ApiViewSet, basename="dashboard")
 
 router.register(r"payment", PaymentViewSet, basename="payment")
 
-router.register(r"webhook", WebHookViewSet, basename="webhook")
-
 router.register(r"verify", VerifyViewSet, basename="verify")
 
 router.register(r"resend", ResendViewSet, basename="resend")
+
+router.register(r"resetpassword", ResetPasswordViewSet, basename="resetpassword")
+
+router.register(r"rotate", RotateViewSet, basename="rotate")
 
 urlpatterns = [
     *router.urls,

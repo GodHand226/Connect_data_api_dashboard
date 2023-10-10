@@ -26,7 +26,7 @@ def insert_api_info(email):
     key = key_generator()
     info["email"] = email
     info["API_KEY"] = key
-    info["Record"] = 100
+    info["Record"] = 25
 
     try:
         mycol.insert_one(info)

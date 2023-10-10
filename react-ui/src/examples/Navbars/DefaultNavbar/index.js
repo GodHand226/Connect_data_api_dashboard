@@ -95,7 +95,7 @@ function DefaultNavbar({ transparent, light }) {
               route="/dataviewer"
               light={light}
             />
-            <DefaultNavbarLink icon="paid" name="Billing" route="/billing" light={light} />
+            <DefaultNavbarLink icon="paid" name="Upgrade" route="/upgrade" light={light} />
             <DefaultNavbarLink icon="show_chart" name="API" route="/api" light={light} />
           </SuiBox>
         )}

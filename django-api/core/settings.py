@@ -184,3 +184,7 @@ if CORS_ALLOWED_ORIGINS_ENV:
 
 TESTING = False
 TEST_RUNNER = "core.test_runner.CoreTestRunner"
+
+BRAINTREE_MERCHANT_ID = 'mpzfqswqgkrvgxx2'
+BRAINTREE_PUBLIC_KEY = 'vf73txymr9hyj65d'
+BRAINTREE_PRIVATE_KEY = 'bef63774af9a3f484ca210ada906ef99'

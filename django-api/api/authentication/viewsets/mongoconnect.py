@@ -1,5 +1,5 @@
 import pymongo
 
-myclient = pymongo.MongoClient("mongodb+srv://mangesh:qetBL9rmcmb2Zo1L@cluster1.iurr8uo.mongodb.net/")
-mydb = myclient["API"]
-mycol = mydb["api_info"]
+myclient = pymongo.MongoClient("mongodb+srv://data78966:FbHlEAqwiW6gqfj1@cluster0.7rkjs.mongodb.net/")
+mydb = myclient["mydatabase"]
+mycol = mydb["API"]

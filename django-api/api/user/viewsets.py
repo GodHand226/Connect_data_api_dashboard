@@ -17,7 +17,7 @@ class UserViewSet(
 
     def update(self, request, *args, **kwargs):
         partial = kwargs.pop("partial", True)
-        instance = User.objects.get(id=request.data.get("userID"))
+        instance = User.objects.get(email=request.data.get("email"))
         serializer = self.get_serializer(instance, data=request.data, partial=partial)
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)

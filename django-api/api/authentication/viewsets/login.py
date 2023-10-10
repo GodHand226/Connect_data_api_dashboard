@@ -14,5 +14,4 @@ class LoginViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin):
         serializer = self.get_serializer(data=request.data)
        
         serializer.is_valid(raise_exception=True)
-        print("hello")
         return Response(serializer.validated_data, status=status.HTTP_200_OK)

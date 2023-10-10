@@ -12,6 +12,9 @@ class ApiViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin):
 
     def create(self, request, *args, **kwargs):
         user = request.user
+        print(user.email)
         res = mycol.find_one({"email" : user.email})
+        
+        print(res)
         data = {k:str(v) for k, v in res.items()}
         return JsonResponse(data, status=status.HTTP_200_OK)

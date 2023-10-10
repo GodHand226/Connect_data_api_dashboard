@@ -38,7 +38,8 @@ Coded by www.creative-tim.com
 // Soft UI Dashboard React layouts
 import Dashboard from "layouts/dashboard";
 import Tables from "layouts/tables";
-import Billing from "layouts/billing";
+import Upgrade from "layouts/upgrade";
+// import Billing from "layouts/billing";
 // import RTL from "layouts/rtl";
 import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
@@ -91,14 +92,24 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Billing",
-    key: "billing",
-    route: "/billing",
+    name: "Upgrade",
+    key: "upgrade",
+    route: "/upgrade",
     icon: <CreditCard size="12px" />,
-    component: Billing,
+    component: Upgrade,
     noCollapse: true,
     protected: true,
   },
+  // {
+  //   type: "collapse",
+  //   name: "Billing",
+  //   key: "billing",
+  //   route: "/billing",
+  //   icon: <CreditCard size="12px" />,
+  //   component: Billing,
+  //   noCollapse: true,
+  //   protected: true,
+  // },
   {
     type: "collapse",
     name: "API",

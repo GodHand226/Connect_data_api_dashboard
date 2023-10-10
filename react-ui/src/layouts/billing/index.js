@@ -1,82 +1,94 @@
-// import SuiBox from "components/SuiBox";
-// import SuiButton from "components/SuiButton";
-// Soft UI Dashboard React components
-// import Link from "@mui/material/Link";
-// import axios from "axios";
+/**
+=========================================================
+* Soft UI Dashboard React - v2.0.0
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-material-ui
+* Copyright 2021 Creative Tim (https://www.creative-tim.com)
+
+Coded by www.creative-tim.com
+
+ =========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+*/
+
+// // @mui material components
+import Grid from "@mui/material/Grid";
+
+// // Soft UI Dashboard React components
+import SuiBox from "components/SuiBox";
+
+// // Soft UI Dashboard React components
+import MasterCard from "examples/Cards/MasterCard";
+import DefaultInfoCard from "examples/Cards/InfoCards/DefaultInfoCard";
+
+// Soft UI Dashboard React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-import SuiBox from "components/SuiBox";
-import "react-coinbase-commerce/dist/coinbase-commerce-button.css";
-import PlanCard from "./Plancard";
-// import { useState } from "react";
-// import { API_SERVER } from "../../config/constant";
-// import { useAuth } from "../../auth-context/auth.context";
-import { Grid } from "@mui/material";
-function Billing() {
-  // let { user } = useAuth();
 
-  // const getCharge = async () => {
-  //   let res = "";
-  //   try {
-  //     res = await axios.post(
-  //       `${API_SERVER}/users/payment`,
-  //       { alignment },
-  //       {
-  //         headers: { Authorization: `${user.token}` },
-  //       }
-  //     );
-  //     console.log(res);
-  //   } catch (e) {
-  //     console.error(e);
-  //   }
-  //   return res;
-  // };
-  // const openInNewTab = (url) => {
-  //   const newWindow = window.open(url, "_blank", "noopener,noreferrer");
-  //   if (newWindow) newWindow.opener = null;
-  // };
+// Billing page components
+import PaymentMethod from "layouts/billing/components/PaymentMethod";
+import Invoices from "layouts/billing/components/Invoices";
+import BillingInformation from "layouts/billing/components/BillingInformation";
+import Transactions from "layouts/billing/components/Transactions";
+
+function Billing() {
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <SuiBox mt={10} display="flex" justifyContent="center">
-        <Grid container width={"90%"} justifyContent="space-around" spacing={5}>
-          <Grid item xs={12} sm={3}>
-            <PlanCard
-              title="Pay As You Go"
-              description="No subscription No commitment"
-              pricing="$0.10 per Record"
-              plan="Add fund"
-              checkout="https://commerce.coinbase.com/checkout/229175bd-f479-4c98-92ec-529e321ba565"
-            ></PlanCard>
+      <button
+        data-fsc-item-path-value="pay-as-you-go"
+        data-fsc-action="Add, Checkout"
+        data-fsc-item-path="pay-as-you-go"
+        data-fsc-item-selection-smartdisplay-inverse
+      >
+        Add to Cart
+      </button>
+      <SuiBox mt={4}>
+        <SuiBox mb={1.5}>
+          <Grid container spacing={3}>
+            <Grid item xs={12} lg={8}>
+              <Grid container spacing={3}>
+                <Grid item xs={12} xl={6}>
+                  <MasterCard number={4562112245947852} holder="jack peterson" expires="11/22" />
+                </Grid>
+                <Grid item xs={12} md={6} xl={3}>
+                  <DefaultInfoCard
+                    icon="account_balance"
+                    title="salary"
+                    description="Belong Interactive"
+                    value="+$2000"
+                  />
+                </Grid>
+                <Grid item xs={12} md={6} xl={3}>
+                  <DefaultInfoCard
+                    icon="paypal"
+                    title="paypal"
+                    description="Freelance Payment"
+                    value="$455.00"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <PaymentMethod />
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item xs={12} lg={4}>
+              <Invoices />
+            </Grid>
           </Grid>
-          <Grid item xs={12} sm={3}>
-            <PlanCard
-              title="Standard"
-              description="Minimum 100k Data Records"
-              pricing="$0.08 per Record"
-              plan="Upgrade"
-              checkout="https://commerce.coinbase.com/checkout/ddef4028-7f8f-48d2-abb2-8b4733d3d019"
-            ></PlanCard>
+        </SuiBox>
+        <SuiBox mb={3}>
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={7}>
+              <BillingInformation />
+            </Grid>
+            <Grid item xs={12} md={5}>
+              <Transactions />
+            </Grid>
           </Grid>
-          <Grid item xs={12} sm={3}>
-            <PlanCard
-              title="Professional"
-              description="Minimum 500k Data Records"
-              pricing="$0.06 per Record"
-              plan="Upgrade"
-              checkout="https://commerce.coinbase.com/checkout/37b74e8f-e81f-468c-9415-5eee35e805a9"
-            ></PlanCard>
-          </Grid>
-          <Grid item xs={12} sm={3}>
-            <PlanCard
-              title="Enterprise"
-              description="Minimum 1 Million Data Records"
-              pricing="$0.04 per Record"
-              plan="Upgrade"
-              checkout="https://commerce.coinbase.com/checkout/9c8e82de-a792-4558-9917-6c19ec5d8fdc"
-            ></PlanCard>
-          </Grid>
-        </Grid>
+        </SuiBox>
       </SuiBox>
     </DashboardLayout>
   );
