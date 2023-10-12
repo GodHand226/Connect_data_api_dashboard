@@ -8,13 +8,8 @@ from api.authentication.viewsets.mongoconnect import mycol
 from django.http import HttpResponse
 from core import settings
 import logging
-import braintree
 
 value = 0
-braintree.Configuration.configure(braintree.Environment.Sandbox,
-    merchant_id=settings.BRAINTREE_MERCHANT_ID,
-    public_key=settings.BRAINTREE_PUBLIC_KEY,
-    private_key=settings.BRAINTREE_PRIVATE_KEY)
 
 class PaymentViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin):
     permission_classes = (IsAuthenticated,)
