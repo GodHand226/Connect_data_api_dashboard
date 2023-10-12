@@ -27,6 +27,8 @@ def insert_api_info(email):
     info["email"] = email
     info["API_KEY"] = key
     info["Record"] = 25
+    info["Usage"] = []
+    info["idList"] = []
 
     try:
         mycol.insert_one(info)
