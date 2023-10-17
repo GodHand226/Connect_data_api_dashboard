@@ -1,5 +1,10 @@
 import pymongo
+import os
+from dotenv import load_dotenv
 
-myclient = pymongo.MongoClient("mongodb+srv://data78966:FbHlEAqwiW6gqfj1@cluster0.7rkjs.mongodb.net/")
+load_dotenv()
+
+print(os.getenv("DB_CONNECT_URL"))
+myclient = pymongo.MongoClient(os.getenv("DB_CONNECT_URL"))
 mydb = myclient["mydatabase"]
 mycol = mydb["API"]
