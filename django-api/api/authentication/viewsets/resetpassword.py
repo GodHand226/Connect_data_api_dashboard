@@ -11,7 +11,13 @@ class ResetPasswordViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin):
         email = request.data.get("email", None)
         password = request.data.get("password", None)
         user = User.objects.get(email=email)
-
+        if not user:
+            return Response({
+                "success": False,
+                "msg": "Email does not exist",
+            }, status=status.HTTP_400_BAD_REQUEST)
+        user.set_password(password)
+        user.save()
         return Response({
                 "success": True,
                 "msg": "Reset Successfully",

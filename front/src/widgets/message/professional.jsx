@@ -61,11 +61,10 @@ export function Professional({ open, handler }) {
         <strong>Payment Details:</strong>
         <ul className="ml-4">
           <li>Account Holder: Data API Connect LLC</li>
-          <li>Routing Number: 084009519</li>
-          <li>Account Number: 9600012896158670 </li>
-          <li>Account Type: Checking </li>
-          <li>Bank Name: MUFG BANK</li>
-          <li>Email : sales@dataapiconnect.com</li>
+          <li>ACH and Wire routing number: 026073150</li>
+          <li>Account Number: 8313797815</li>
+          <li>Account Type: Checking</li>
+          <li>Email : info@dataapiconnect.com</li>
           <li>Phone: +1 (484) 978-9456</li>
           <li>
             Address: 30 W. 26th Street, Sixth Floor, New York, NY 10010, United

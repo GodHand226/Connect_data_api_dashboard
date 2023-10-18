@@ -27,6 +27,10 @@ class AuthApi {
     return axios.post(`${base}/resend`, data);
   };
 
+  static ResetPassword = (data) => {
+    return axios.post(`${base}/resetpassword`, data);
+  };
+
   static Rotate = (data) => {
     return axios.post(`${base}/rotate`, data, {
       headers: { Authorization: `${data.token}` },

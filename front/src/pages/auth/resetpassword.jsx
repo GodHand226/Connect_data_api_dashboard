@@ -15,20 +15,19 @@ import { SimpleFooter, Navbar } from "@/widgets/layout";
 import { useAuth } from "@/auth-context/auth.context";
 import AuthApi from "@/api/auth";
 import routes from "@/routes";
-import AES from "crypto-js/aes";
-import Utf8 from "crypto-js/enc-utf8";
+import CryptoJS from "crypto-js";
 
 const passphrase = "secretkey";
 const decryptWithAES = (ciphertext) => {
-  console.log(ciphertext);
-  const bytes = AES.decrypt(ciphertext, passphrase).toString(Utf8);
-  console.log(bytes);
-  const dec = JSON.parse(bytes);
-  const originalText = dec.str
+  const origin = ciphertext
     .replaceAll("xMl3Jk", "+")
     .replaceAll("Por21Ld", "/")
     .replaceAll("Ml32", "=");
-  return originalText;
+  console.log(origin);
+  const bytes = CryptoJS.AES.decrypt(origin, passphrase).toString(
+    CryptoJS.enc.Utf8
+  );
+  return bytes;
 };
 
 export function ResetPassword() {
@@ -59,8 +58,7 @@ export function ResetPassword() {
     try {
       setButtonText("Resetting...");
       const email = decryptWithAES(params.id);
-      console.log(email);
-      let response = await AuthApi.Edit({
+      let response = await AuthApi.ResetPassword({
         email: email,
         password: password,
       });

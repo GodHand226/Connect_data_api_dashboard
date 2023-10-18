@@ -15,12 +15,11 @@ import { SimpleFooter, Navbar } from "@/widgets/layout";
 import { useAuth } from "@/auth-context/auth.context";
 import AuthApi from "@/api/auth";
 import routes from "@/routes";
-import AES from "crypto-js/aes";
-import Utf8 from "crypto-js/enc-utf8";
+import CryptoJS from "crypto-js";
 
 const passphrase = "secretkey";
 const encryptWithAES = (text) => {
-  var enc = AES.encrypt(text, passphrase);
+  var enc = CryptoJS.AES.encrypt(text, passphrase);
   return enc
     .toString()
     .replaceAll("+", "xMl3Jk")
